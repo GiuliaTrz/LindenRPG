@@ -3,12 +3,16 @@
  */
 package it.unicam.cs.mpgc.rpg126763;
 
+import it.unicam.cs.mpgc.rpg126763.models.Equip;
+import it.unicam.cs.mpgc.rpg126763.models.Personaggio;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+
+        Personaggio test = new Personaggio("Linden");
+        System.out.println(test);
+        test.setWeapon(Equip.SWORD);
+        System.out.println(test);
     }
 }
