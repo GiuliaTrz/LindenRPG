@@ -70,6 +70,12 @@ public class Personaggio {
         inventory.add(item);
     }
 
+    public void removeItem(Item item){ inventory.remove(item);}
+
+    public void getItem(int index){
+        inventory.get(index);
+    }
+
     public List<Item> getInventory() {
         return inventory;
     }

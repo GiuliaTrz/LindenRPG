@@ -3,16 +3,27 @@
  */
 package it.unicam.cs.mpgc.rpg126763;
 
+import com.google.gson.Gson;
 import it.unicam.cs.mpgc.rpg126763.models.Equip;
+import it.unicam.cs.mpgc.rpg126763.models.Item;
 import it.unicam.cs.mpgc.rpg126763.models.Personaggio;
 
 public class App {
 
     public static void main(String[] args) {
 
+        Item crystal = new Item("Crystal", "A magical crystal");
+        Item book = new Item ("Book", "A magical book");
+//memo aggiungere UUID su tutti gli elementi che memorizzo, tipo personaggio, nemico, etc
         Personaggio test = new Personaggio("Linden");
+        test.addItem(crystal);
+        test.addItem(book);
         System.out.println(test);
         test.setWeapon(Equip.SWORD);
         System.out.println(test);
+        Gson gson = new Gson();
+        String saveData = gson.toJson(test);
+        System.out.println(saveData);
+
     }
 }
