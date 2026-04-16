@@ -22,6 +22,8 @@ public class App {
         test.setWeapon(Equip.SWORD);
         System.out.println(test);
         Gson gson = new Gson();
+        //add gerarchia classi per salvare e recuperare--caricare dati (funzione "load data")
+        //memo rendere tutto thead safe e estendibile
         String saveData = gson.toJson(test);
         System.out.println(saveData);
         Personaggio character = gson.fromJson(saveData, Personaggio.class);
