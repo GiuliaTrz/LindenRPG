@@ -10,8 +10,9 @@ public class Personaggio {
     private int hp;
     private int mp;
     private Equip weapon;
-
     private List<Item> inventory = new ArrayList<>();
+
+    //json utile per estendibilità
 
     public Personaggio(String name) {
         this.name = name;
@@ -31,6 +32,10 @@ public class Personaggio {
         sb.append("Hp:").append(hp).append("\n");
         sb.append("Mp:").append(mp).append("\n");
         sb.append("Arma:").append(weapon).append("\n");
+        sb.append("Inventory:").append("\n");
+        for (Item i : inventory){
+            sb.append("--").append(i);
+        }
         return sb.toString();
     }
 
@@ -67,6 +72,12 @@ public class Personaggio {
 
     public void addItem(Item item) {
         inventory.add(item);
+    }
+
+    public void removeItem(Item item){ inventory.remove(item);}
+
+    public void getItem(int index){
+        inventory.get(index);
     }
 
     public List<Item> getInventory() {
