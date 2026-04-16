@@ -10,8 +10,9 @@ public class Personaggio {
     private int hp;
     private int mp;
     private Equip weapon;
-
     private List<Item> inventory = new ArrayList<>();
+
+    //json utile per estendibilità
 
     public Personaggio(String name) {
         this.name = name;
