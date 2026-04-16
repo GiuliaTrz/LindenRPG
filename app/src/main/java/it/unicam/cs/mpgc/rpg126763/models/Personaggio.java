@@ -32,6 +32,10 @@ public class Personaggio {
         sb.append("Hp:").append(hp).append("\n");
         sb.append("Mp:").append(mp).append("\n");
         sb.append("Arma:").append(weapon).append("\n");
+        sb.append("Inventory:").append("\n");
+        for (Item i : inventory){
+            sb.append("--").append(i);
+        }
         return sb.toString();
     }
 

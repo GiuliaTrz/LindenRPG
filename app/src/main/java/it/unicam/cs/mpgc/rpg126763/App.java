@@ -24,6 +24,7 @@ public class App {
         Gson gson = new Gson();
         String saveData = gson.toJson(test);
         System.out.println(saveData);
-
+        Personaggio character = gson.fromJson(saveData, Personaggio.class);
+        System.out.println(character);
     }
 }
