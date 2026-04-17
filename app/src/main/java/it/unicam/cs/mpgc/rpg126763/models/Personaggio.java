@@ -1,18 +1,18 @@
 package it.unicam.cs.mpgc.rpg126763.models;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Personaggio {
+
     private String name;
     private int hp;
     private int mp;
-    private Equip weapon;
-    private List<Item> inventory = new ArrayList<>();
 
-    //json utile per estendibilità
+    private Classe classe;
+    private Equip weapon;
+
+    private List<Item> inventory = new ArrayList<>();
 
     public Personaggio(String name) {
         this.name = name;
@@ -20,67 +20,78 @@ public class Personaggio {
         this.mp = 50;
     }
 
-    /**
-     * Uso il design pattern Builder per massimizzare l'estendibilità e gestire facilmente
-     * la visualizzazione delle statistiche
-     * @return ritorna le informazioni del personaggio (nome, hp, mp)
-     */
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Name:").append(name).append("\n");
-        sb.append("Hp:").append(hp).append("\n");
-        sb.append("Mp:").append(mp).append("\n");
-        sb.append("Arma:").append(weapon).append("\n");
-        sb.append("Inventory:").append("\n");
-        for (Item i : inventory){
-            sb.append("--").append(i);
-        }
-        return sb.toString();
-    }
-
-    /**
-     * Creo un metodo vuoto per la persistenza
-     */
+    //costruttore vuoto per JSON
     public Personaggio() {}
+
 
     public String getName() { return name; }
     public int getHp() { return hp; }
     public int getMp() { return mp; }
+    public Classe getClasse() { return classe; }
+    public Equip getWeapon() { return weapon; }
+    public List<Item> getInventory() { return inventory; }
+
+    public void setClasse(Classe classe) {
+        this.classe = classe;
+        this.hp = classe.getBaseHp();
+        this.mp = classe.getBaseMp();
+    }
 
     public void setWeapon(Equip weapon) {
         this.weapon = weapon;
-        this.hp = weapon.getBaseHp();
-        this.mp = weapon.getBaseMp();  //aggiorno gli mp a quelli corrispondenti alla classe
-    }
-
-    public Equip getWeapon() {
-        return weapon;
     }
 
     public void takeDamage(int dmg) {
-        if (dmg>=0) {
-            hp -= dmg;
+        if (dmg > 0) {
+            hp = Math.max(0, hp - dmg);
         }
     }
 
-    public void heal(int hp){
-        if (hp>=0){
-            this.hp += hp;
+    public void heal(int amount) {
+        if (amount > 0) {
+            hp += amount;
         }
     }
 
+    public boolean isAlive() {
+        return hp > 0;
+    }
+
+   //inventario
     public void addItem(Item item) {
         inventory.add(item);
     }
 
-    public void removeItem(Item item){ inventory.remove(item);}
-
-    public void getItem(int index){
-        inventory.get(index);
+    public void removeItem(Item item) {
+        inventory.remove(item);
     }
 
-    public List<Item> getInventory() {
-        return inventory;
+    public Item getItem(int index) {
+        return inventory.get(index);
+    }
+
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Name: ").append(name).append("\n");
+        sb.append("HP: ").append(hp).append("\n");
+        sb.append("MP: ").append(mp).append("\n");
+
+        if (classe != null) {
+            sb.append("\nClasse:\n").append(classe).append("\n");
+        }
+
+        if (weapon != null) {
+            sb.append("Arma: ").append(weapon).append("\n");
+        }
+
+        sb.append("\nInventario:\n");
+        for (Item i : inventory) {
+            sb.append("- ").append(i).append("\n");
+        }
+
+        return sb.toString();
     }
 }

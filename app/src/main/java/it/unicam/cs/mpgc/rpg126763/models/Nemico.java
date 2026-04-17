@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg126763.models;
 
 public class Nemico {
+
     private String name;
     private int hp;
     private int attack;
@@ -11,12 +12,17 @@ public class Nemico {
         this.attack = attack;
     }
 
+    // costruttore vuoto per JSON (da aggiungere)
+    public Nemico() {}
+
     public boolean isAlive() {
         return hp > 0;
     }
 
     public void takeDamage(int dmg) {
-        hp -= dmg;
+        if (dmg > 0) {
+            hp = Math.max(0, hp - dmg); // evita HP negativi
+        }
     }
 
     public int getAttack() {
@@ -29,5 +35,14 @@ public class Nemico {
 
     public int getHp() {
         return hp;
+    }
+
+    @Override
+    public String toString() {
+        return "Nemico{" +
+                "name='" + name + '\'' +
+                ", hp=" + hp +
+                ", attack=" + attack +
+                '}';
     }
 }
