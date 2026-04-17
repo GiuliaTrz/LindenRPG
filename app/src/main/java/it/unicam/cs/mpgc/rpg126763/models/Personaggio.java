@@ -8,10 +8,8 @@ public class Personaggio {
     private String name;
     private int hp;
     private int mp;
-
-    private Classe classe;
+    private MageType mageType;
     private Equip weapon;
-
     private List<Item> inventory = new ArrayList<>();
 
     public Personaggio(String name) {
@@ -20,26 +18,68 @@ public class Personaggio {
         this.mp = 50;
     }
 
-    //costruttore vuoto per JSON
     public Personaggio() {}
 
+    public String getName() {
+        return name;
+    }
 
-    public String getName() { return name; }
-    public int getHp() { return hp; }
-    public int getMp() { return mp; }
-    public Classe getClasse() { return classe; }
-    public Equip getWeapon() { return weapon; }
-    public List<Item> getInventory() { return inventory; }
+    public int getHp() {
+        return hp;
+    }
 
-    public void setClasse(Classe classe) {
-        this.classe = classe;
-        this.hp = classe.getBaseHp();
-        this.mp = classe.getBaseMp();
+    public int getMp() {
+        return mp;
+    }
+
+    public MageType getMageType() {
+        return mageType;
+    }
+
+    public Equip getWeapon() {
+        return weapon;
+    }
+
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
+    public void useItem(Item item) {
+
+        if (item == null) return;
+
+        switch (item.getType()) {
+
+            case HEAL -> {
+                heal(item.getValue());
+                System.out.println("Hai recuperato" + item.getValue() + " HP!");
+            }
+
+            case BUFF -> {
+                mp += item.getValue();
+                System.out.println("Ottieni " + item.getValue() + " MP!");
+            }
+
+            case QUEST -> {
+                System.out.println("Hai utilizzato: " + item.getName());
+            }
+        }
+
+        inventory.remove(item);
+    }
+
+    //setup iniziale del personaggio (scelta del tipo di mago: acqua, terra, aria, fuoco)
+    public void setMageType(MageType mageType) {
+        this.mageType = mageType;
+        this.hp = mageType.getBaseHp();
+        this.mp = mageType.getBaseMp();
     }
 
     public void setWeapon(Equip weapon) {
         this.weapon = weapon;
     }
+
+    //logica di combattimento
 
     public void takeDamage(int dmg) {
         if (dmg > 0) {
@@ -53,11 +93,25 @@ public class Personaggio {
         }
     }
 
+    public void consumeMp(int amount) {
+        if (amount > 0) {
+            mp = Math.max(0, mp - amount);
+        }
+    }
+
     public boolean isAlive() {
         return hp > 0;
     }
 
-   //inventario
+    //skills
+    public List<Skill> getSkills() {
+        if (mageType == null) {
+            return List.of();
+        }
+        return mageType.getSkills();
+    }
+
+    //inventario
     public void addItem(Item item) {
         inventory.add(item);
     }
@@ -70,6 +124,17 @@ public class Personaggio {
         return inventory.get(index);
     }
 
+    public void printInventory() {
+        if (inventory.isEmpty()) {
+            System.out.println("Inventario vuoto.");
+            return;
+        }
+
+        System.out.println("\n Inventario:");
+        for (int i = 0; i < inventory.size(); i++) {
+            System.out.println((i + 1) + ") " + inventory.get(i));
+        }
+    }
 
     @Override
     public String toString() {
@@ -79,15 +144,15 @@ public class Personaggio {
         sb.append("HP: ").append(hp).append("\n");
         sb.append("MP: ").append(mp).append("\n");
 
-        if (classe != null) {
-            sb.append("\nClasse:\n").append(classe).append("\n");
+        if (mageType != null) {
+            sb.append("\nMage Type:\n").append(mageType).append("\n");
         }
 
         if (weapon != null) {
-            sb.append("Arma: ").append(weapon).append("\n");
+            sb.append("Weapon: ").append(weapon).append("\n");
         }
 
-        sb.append("\nInventario:\n");
+        sb.append("\nInventory:\n");
         for (Item i : inventory) {
             sb.append("- ").append(i).append("\n");
         }

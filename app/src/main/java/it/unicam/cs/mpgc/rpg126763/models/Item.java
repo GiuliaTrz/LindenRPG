@@ -4,14 +4,19 @@ public class Item {
 
     private String name;
     private String description;
+    private ItemType type;
 
-    public Item(String name, String description) {
+    // valore opzionale (es: cura HP)
+    private int value;
+
+    public Item() {}
+
+    public Item(String name, String description, ItemType type, int value) {
         this.name = name;
         this.description = description;
+        this.type = type;
+        this.value = value;
     }
-
-    // per JSON
-    public Item() {}
 
     public String getName() {
         return name;
@@ -21,8 +26,16 @@ public class Item {
         return description;
     }
 
+    public ItemType getType() {
+        return type;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
-        return name + " - " + description;
+        return name + " (" + type + ") - " + description;
     }
 }

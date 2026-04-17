@@ -2,57 +2,62 @@ package it.unicam.cs.mpgc.rpg126763.models;
 
 public enum Skill {
 
-    //memo cambiare nomi
-    FIAMMA("Fiamma", 0, 3, 10, 0),
-    COLPO_DEL_DRAGO("Colpo del Drago", 0, 5, 15, 0),
-    SALTO_INFUOCATO("Salto Infuocato", 0, 8, 20, 0),
+    // Emberweaver
+    EMBER_SPEAR("Ember Spear", 0, 5, 15, 0),
+    FLAME_STEP("Flame Step", 0, 8, 10, 0),
+    ASHEN_BURST("Ashen Burst", 0, 12, 25, 0),
 
-    FRECCIA_TRIPLA("Freccia Tripla", 0, 5, 20, 0),
-    OCCHIO_DEL_FALCO("Occhio del Falco", 5, 5, 0, 0),
-    COLPO_CRITICO("Colpo Critico", 0, 10, 25, 0),
+    // Tideweaver
+    WATER_LULL("Water Lull", 10, 6, 0, 0),
+    TIDE_BIND("Tide Bind", 0, 10, 15, 0),
+    RESTORE_FLOW("Restore Flow", 25, 12, 0, 0),
 
-    CATENE_INCANTATE("Catene Incantate", 0, 20, 10, 0),
-    GUARIGIONE("Guarigione", 20, 10, 0, 0),
-    SFERA_MAGICA("Sfera Magica", 0, 15, 5, 0);
+    // Gustweaver
+    WIND_CUT("Wind Cut", 0, 6, 18, 0),
+    FEATHER_STEP("Feather Step", 5, 5, 0, 0),
+    SKY_PIERCE("Sky Pierce", 0, 10, 22, 0),
 
-    private final String displayName;
+    // Earthweaver
+    STONE_SKIN("Stone Skin", 15, 8, 0, 0),
+    ROOT_GRASP("Root Grasp", 0, 10, 20, 0),
+    GEODE_BREAK("Geode Break", 0, 15, 30, 0);
 
-    // valori sempre POSITIVI → più chiaro
-    private final int healPlayer;     // quanto cura il player
-    private final int costMp;         // quanto MP consuma
-    private final int damageEnemy;    // quanto danno fa al nemico
-    private final int damageEnemyMp;  // eventuale danno MP al nemico (ma penso non serva)
+    private final String name;
+    private final int heal;
+    private final int costMp;
+    private final int damage;
+    private final int enemyMpDamage;
 
-    Skill(String displayName, int healPlayer, int costMp, int damageEnemy, int damageEnemyMp) {
-        this.displayName = displayName;
-        this.healPlayer = healPlayer;
+    Skill(String name, int heal, int costMp, int damage, int enemyMpDamage) {
+        this.name = name;
+        this.heal = heal;
         this.costMp = costMp;
-        this.damageEnemy = damageEnemy;
-        this.damageEnemyMp = damageEnemyMp;
+        this.damage = damage;
+        this.enemyMpDamage = enemyMpDamage;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getName() {
+        return name;
     }
 
-    public int getHealPlayer() {
-        return healPlayer;
+    public int getHeal() {
+        return heal;
     }
 
     public int getCostMp() {
         return costMp;
     }
 
-    public int getDamageEnemy() {
-        return damageEnemy;
+    public int getDamage() {
+        return damage;
     }
 
-    public int getDamageEnemyMp() {
-        return damageEnemyMp;
+    public int getEnemyMpDamage() {
+        return enemyMpDamage;
     }
 
     @Override
     public String toString() {
-        return displayName;
+        return name;
     }
 }
