@@ -2,7 +2,10 @@ package it.unicam.cs.mpgc.rpg126763.models;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//scelgo classe astratta (ho tanti attributi da condividere e metodi che fanno sempre la stessa cosa)
+//invece di usare un'interfaccia
+//astratta= non posso istanziarla direttamente: astratta o no? astratta: serve per la gerarchia,
+//posso aggiungere altri tipi di personaggi estendendo , quindi creando una classe che estende Personaggio
 public class Personaggio {
 
     private String name;
@@ -52,7 +55,7 @@ public class Personaggio {
 
             case HEAL -> {
                 heal(item.getValue());
-                System.out.println("Hai recuperato" + item.getValue() + " HP!");
+                System.out.println("Hai recuperato" + item.getValue() + " HP!"); //togliere
             }
 
             case BUFF -> {

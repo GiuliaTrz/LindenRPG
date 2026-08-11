@@ -8,7 +8,11 @@ import it.unicam.cs.mpgc.rpg126763.persistence.SaveManager;
 import java.util.Scanner;
 
 public class GameApp {
-
+//appena si avvia il gioco e faccio new story, scelgo io il nome (input stream, scan...)
+    //sistema di load
+    //deve funzionare anche se premo invio se c'è solo una opzione
+    //tasto--> avanti
+    //Ermellino: "Bene... ha scelto te"
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -37,7 +41,9 @@ public class GameApp {
 
         System.out.println("\nStart");
         System.out.println(player);
-        DialogueManager dm = new DialogueManager("src/main/resources/dialogues.json");
+        DialogueManager dm = new DialogueManager("src/main/resources/dialogues.json", new NPC ("Ermellino"));
+        //new npc(ermellino)
+        //ogni json ha "dialogue_npc", etc...
         dm.start("start", player);
         Nemico slime = new Nemico("Slime", 60, 8);
         BattleManager battle = new BattleManager();
