@@ -2,8 +2,10 @@ package it.unicam.cs.mpgc.rpg126763.dialogue;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.unicam.cs.mpgc.rpg126763.character.NPC;
+import it.unicam.cs.mpgc.rpg126763.character.Personaggio;
 import it.unicam.cs.mpgc.rpg126763.models.MageType;
-import it.unicam.cs.mpgc.rpg126763.models.Personaggio;
+
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,10 +16,12 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class DialogueManager {
-
+//differenziare perché sembra un gameengine, un dialoguemanager deve solo mostrarli, lo switch è parte del gameengine
     private Map<String, Dialogue> dialogues;
+    private NPC npc;
 
-    public DialogueManager(String filePath) {
+    public DialogueManager(String filePath, NPC npc) {
+        this.npc = npc;
         load();
     }
 
@@ -58,14 +62,14 @@ public class DialogueManager {
             System.out.println("Nessun dialogo caricato");
             return;
         }
-
+//sistema di id per dialoghi?
         Scanner scanner = new Scanner(System.in);
 
         Dialogue current = dialogues.get(startId);
 
         while (current != null) {
 
-            System.out.println("\n" + current.getText());
+            System.out.println("\n" + this.npc.getName() + ": " + current.getText());
 
             if (!current.hasOptions()) {
                 break;
@@ -90,7 +94,7 @@ public class DialogueManager {
         }
     }
 
-    //effetti per magie
+    //effetti per magie --> potrebbe essere un enum
     private void handleEffect(String effect, Personaggio player) {
 
         if (effect == null) return;
@@ -100,7 +104,9 @@ public class DialogueManager {
             case "SET_MAGE_EMBER":
                 player.setMageType(MageType.EMBERWEAVER);
                 System.out.println("Una fiamma si accende dentro di te...");
+                //non va bene metterli nel dialogue manager, non è più configurabile
                 break;
+                //invece di questo, ho enum per istruzione SET (enumSET.mageember..)
 
             case "SET_MAGE_TIDE":
                 player.setMageType(MageType.TIDEWEAVER);

@@ -90,7 +90,7 @@
         "id": "EARTH",
         "text": "...la pietra",
         "nextDialogueId": "after_choice",
-        "effect": "SET_MAGE_EARTH"
+        "effect": "SET_MAGE_EARTH" //serializzare, effect mage earth.. id, etc con testo, conveniente fare una classe, NO println
       }
     ]
   },

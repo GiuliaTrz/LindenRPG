@@ -2,7 +2,7 @@ package it.unicam.cs.mpgc.rpg126763.persistence;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.unicam.cs.mpgc.rpg126763.models.Personaggio;
+import it.unicam.cs.mpgc.rpg126763.character.Personaggio;
 
 import java.io.FileReader;
 import java.io.FileWriter;
