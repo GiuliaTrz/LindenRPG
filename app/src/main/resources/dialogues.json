@@ -1,115 +1,126 @@
 [
   {
     "id": "start",
+    "speaker": null,
     "text": "Linden apre lentamente gli occhi... la testa gli pulsa.\n\n'...Mi fa male la testa... dove sono? Non ricordo nemmeno il mio nome...'",
     "options": [
       {
         "id": "continue",
         "text": "Alzati e guarda intorno",
         "nextDialogueId": "forest_1",
-        "effect": null
+        "effect": null,
+        "condition": null
       }
     ]
   },
-
   {
     "id": "forest_1",
+    "speaker": null,
     "text": "La foresta è così silenziosa... Troppo silenziosa...\nSento come delle presenze attorno a me...",
     "options": [
       {
         "id": "continue",
         "text": "Procedi con cautela",
         "nextDialogueId": "monster_1",
-        "effect": null
+        "effect": null,
+        "condition": null
       }
     ]
   },
-
   {
     "id": "monster_1",
+    "speaker": null,
     "text": "Una forma oscura si muove tra gli alberi a grande velocità.\n\nOh no! Un mostro!",
     "options": [
       {
         "id": "fear",
         "text": "Indietreggia per la paura",
-        "nextDialogueId": "ermelin_1",
-        "effect": null
+        "nextDialogueId": "ermine_1",
+        "effect": null,
+        "condition": null
       }
     ]
   },
-
   {
-    "id": "ermelin_1",
+    "id": "ermine_1",
+    "speaker": "Ermellino",
     "text": "Il mostro si ferma.\nPoi... cosa succede?\nIl pelo si ammorbidisce, e il suo corpo si rimpicciolisce.\n\nUn piccolo ermellino soffice ti osserva.\n\n'Ok ok... va meglio così?'\n\nLinden: 'Cosa...?'",
     "options": [
       {
         "id": "continue",
         "text": "Ascoltalo",
-        "nextDialogueId": "ermelin_2",
-        "effect": null
+        "nextDialogueId": "ermine_2",
+        "effect": null,
+        "condition": null
       }
     ]
   },
-
   {
-    "id": "ermelin_2",
+    "id": "ermine_2",
+    "speaker": "Ermellino",
     "text": "L’ermellino scuote la testa.\n\n'Kairi mi aveva accennato al fatto che ti spaventi così facilmente. Comunque...'\n\n'Non ho molto tempo. Prendi solo uno di questi.'\n\nQuattro forze elementali appaiono davanti a te.",
     "options": [
       {
         "id": "continue",
         "text": "Osservale",
         "nextDialogueId": "choice_1",
-        "effect": null
+        "effect": null,
+        "condition": null
       }
     ]
   },
-
   {
     "id": "choice_1",
+    "speaker": null,
     "text": "L’aria cambia.\n\nUna fiamma fluttua, viva, calda.\nUna goccia d’acqua sospesa, delicata..\nUna piuma, che ruota in un vento invisibile e impalpabile.\nUna piccola pietra muschiosa pulsa e fluttua.\n\nNon sono oggetti.\nSono... scelte. Quale elemento ti attira?",
     "options": [
       {
         "id": "EMBER",
         "text": "... la fiamma",
         "nextDialogueId": "after_choice",
-        "effect": "SET_MAGE_EMBER"
+        "effect": "SET_MAGE_EMBER",
+        "condition": null
       },
       {
         "id": "TIDE",
         "text": "...la goccia d’acqua",
         "nextDialogueId": "after_choice",
-        "effect": "SET_MAGE_TIDE"
+        "effect": "SET_MAGE_TIDE",
+        "condition": null
       },
       {
         "id": "GUST",
         "text": "...la piuma del vento",
         "nextDialogueId": "after_choice",
-        "effect": "SET_MAGE_GUST"
+        "effect": "SET_MAGE_GUST",
+        "condition": null
       },
       {
         "id": "EARTH",
         "text": "...la pietra",
         "nextDialogueId": "after_choice",
-        "effect": "SET_MAGE_EARTH" //serializzare, effect mage earth.. id, etc con testo, conveniente fare una classe, NO println
+        "effect": "SET_MAGE_EARTH",
+        "condition": null
       }
     ]
   },
-
   {
     "id": "after_choice",
+    "speaker": "Ermellino",
     "text": "L’ermellino osserva in silenzio.\n\n'Bene... ha scelto te.'\n\nL'aria cambia.\n Beh... il resto lo scoprirai presto. \n Adesso sei un mago.",
     "options": [
       {
         "id": "continue",
         "text": "Avanza verso l’ignoto",
         "nextDialogueId": "end",
-        "effect": null
+        "effect": null,
+        "condition": null
       }
     ]
   },
-
   {
     "id": "end",
+    "speaker": null,
     "text": "Un mago...\ncosa significa?",
     "options": null
   }

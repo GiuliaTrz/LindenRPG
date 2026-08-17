@@ -6,7 +6,7 @@ import it.unicam.cs.mpgc.rpg126763.ui.ConsoleUI;
 import java.util.Scanner;
 
 /**
- * Classe principale per l'esecuzione testuale di LindenRPG.
+ * Classe principale (temporanea, da fixare) per l'esecuzione testuale da terminale di LindenRPG.
  *
  * Mostra un menu per la scelta tra nuova partita e caricamento,
  * quindi delega l'esecuzione al {@link GameEngine} tramite la UI console.
