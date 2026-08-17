@@ -2,9 +2,10 @@ package it.unicam.cs.mpgc.rpg126763.dialogue;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.unicam.cs.mpgc.rpg126763.character.NPC;
+import it.unicam.cs.mpgc.rpg126763.character.Personaggio;
 import it.unicam.cs.mpgc.rpg126763.models.MageType;
-import it.unicam.cs.mpgc.rpg126763.models.NPC;
-import it.unicam.cs.mpgc.rpg126763.models.Personaggio;
+
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,7 +16,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class DialogueManager {
-
+//differenziare perché sembra un gameengine, un dialoguemanager deve solo mostrarli, lo switch è parte del gameengine
     private Map<String, Dialogue> dialogues;
     private NPC npc;
 

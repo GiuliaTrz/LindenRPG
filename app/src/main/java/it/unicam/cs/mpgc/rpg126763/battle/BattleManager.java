@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg126763.battle;
 
 import it.unicam.cs.mpgc.rpg126763.models.*;
+import it.unicam.cs.mpgc.rpg126763.character.*;
 
 import java.util.List;
 import java.util.Scanner;
