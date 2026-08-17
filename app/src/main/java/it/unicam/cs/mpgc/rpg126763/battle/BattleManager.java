@@ -1,71 +1,84 @@
 package it.unicam.cs.mpgc.rpg126763.battle;
 
-import it.unicam.cs.mpgc.rpg126763.models.*;
 import it.unicam.cs.mpgc.rpg126763.character.*;
+import it.unicam.cs.mpgc.rpg126763.models.Skill;
+import it.unicam.cs.mpgc.rpg126763.ui.GameUI;
 
-import java.util.List;
-import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
 
+/**
+ * Gestisce un combattimento a turni tra {@link Personaggio} e {@link Nemico}.
+ * L'esecuzione è asincrona per non bloccare l'interfaccia utente.
+ *
+ * Il flusso è realizzato tramite {@link CompletableFuture} e {@code runAsync}
+ * per evitare una ricorsione profonda e mantenere il codice reattivo.
+ */
 public class BattleManager {
+    private final GameUI ui;
 
-    private final Scanner scanner = new Scanner(System.in);
+    /**
+     * Crea un BattleManager associato a una specifica interfaccia utente.
+     * @param ui l'interfaccia utente (console, JavaFX, ...)
+     */
+    public BattleManager(GameUI ui) {
+        this.ui = ui;
+    }
 
-    public void startBattle(Personaggio player, Nemico enemy) {
+    /**
+     * Avvia il combattimento.
+     *
+     * @param player personaggio giocante
+     * @param enemy  nemico da affrontare
+     * @return un {@link CompletableFuture} che si completa quando la battaglia termina
+     */
+    public CompletableFuture<Void> startBattle(Personaggio player, Nemico enemy) {
+        CompletableFuture<Void> battleEnd = new CompletableFuture<>();
+        turnLoop(player, enemy, battleEnd);
+        return battleEnd;
+    }
 
-        System.out.println("\n Inizia il combattimento contro " + enemy.getName() + "!\n");
+    /**
+     * Loop dei turni. Ogni turno viene eseguito in un nuovo task asincrono.
+     */
+    private void turnLoop(Personaggio player, Nemico enemy, CompletableFuture<Void> endFuture) {
+        if (!player.isAlive() || !enemy.isAlive()) {
+            ui.battleResult(player.isAlive());
+            endFuture.complete(null);
+            return;
+        }
 
-        while (player.isAlive() && enemy.isAlive()) {
+        ui.updateBattleStatus(player, enemy);
 
-            playerTurn(player, enemy);
-
+        ui.chooseSkill(player).thenCompose(skill -> {
+            useSkill(player, enemy, skill);
             if (!enemy.isAlive()) {
-                System.out.println("\n Complimenti! Hai sconfitto " + enemy.getName() + "!");
-                break;
+                ui.battleResult(true);
+                endFuture.complete(null);
+                return CompletableFuture.<Void>completedFuture(null);
             }
 
-            enemyTurn(player, enemy);
+            // Turno nemico
+            int damage = enemy.getAttack();
+            player.takeDamage(damage);
+            ui.enemyTurnNotification(enemy, damage);
 
             if (!player.isAlive()) {
-                System.out.println("\n Oh no...");
+                ui.battleResult(false);
+                endFuture.complete(null);
+                return CompletableFuture.<Void>completedFuture(null);
             }
-        }
+
+            // Prossimo turno (nuova esecuzione asincrona)
+            return CompletableFuture.runAsync(() -> turnLoop(player, enemy, endFuture));
+        });
     }
 
-    private void playerTurn(Personaggio player, Nemico enemy) {
-
-        System.out.println("\nE' il tuo turno!");
-        System.out.println("HP Player: " + player.getHp() + " | MP: " + player.getMp());
-        System.out.println("HP Enemy: " + enemy.getHp());
-
-        List<Skill> skills = player.getSkills();
-
-        for (int i = 0; i < skills.size(); i++) {
-            System.out.println((i + 1) + ") " + skills.get(i).getName());
-        }
-
-        System.out.print("Scegli skill: ");
-        int choice = scanner.nextInt() - 1;
-
-        Skill skill = skills.get(choice);
-
-        useSkill(player, enemy, skill);
-    }
-
-    private void enemyTurn(Personaggio player, Nemico enemy) {
-
-        System.out.println("\nE' il turno del nemico!");
-
-        int damage = enemy.getAttack();
-
-        player.takeDamage(damage);
-
-        System.out.println(enemy.getName() + " hai ricevuto" + damage + " danni!");
-    }
-
+    /**
+     * Applica l'effetto di una skill scelta dal giocatore.
+     */
     private void useSkill(Personaggio player, Nemico enemy, Skill skill) {
-
         if (player.getMp() < skill.getCostMp()) {
-            System.out.println("Non hai abbastanza MP!");
+            ui.showMessage("MP insufficienti!");
             return;
         }
 
@@ -73,13 +86,12 @@ public class BattleManager {
 
         if (skill.getDamage() > 0) {
             enemy.takeDamage(skill.getDamage());
-            System.out.println("Hai usato " + skill.getName() +
-                    " e inflitto " + skill.getDamage() + " danni!");
+            ui.showMessage("Usi " + skill.getName() + " e infliggi " + skill.getDamage() + " di danno");
         }
 
         if (skill.getHeal() > 0) {
             player.heal(skill.getHeal());
-            System.out.println("Ricevi " + skill.getHeal() + " HP!");
+            ui.showMessage("Ti curi con " + skill.getHeal() + " HP");
         }
     }
 }

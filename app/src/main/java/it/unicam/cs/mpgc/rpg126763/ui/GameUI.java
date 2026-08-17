@@ -16,4 +16,13 @@ public interface GameUI {
     CompletableFuture<Skill> chooseSkill(Personaggio player);
     void enemyTurnNotification(Nemico enemy, int damage);
     void battleResult(boolean playerWon);
+
+    /**
+     * Metodo chiamato quando il gioco è pronto per iniziare (dopo il menu).
+     * Di default non fa nulla; le UI grafiche possono sovrascriverlo per
+     * passare dalla schermata di menu alla schermata di gioco.
+     */
+    default void onGameStarted() {
+        // implementazione vuota di default
+    }
 }

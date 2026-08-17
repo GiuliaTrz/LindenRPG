@@ -2,7 +2,7 @@
   {
     "id": "start",
     "speaker": null,
-    "text": "Linden apre lentamente gli occhi... la testa gli pulsa.\n\n'...Mi fa male la testa... dove sono? Non ricordo nemmeno il mio nome...'",
+    "text": "$playerName$ apre lentamente gli occhi... la testa gli pulsa.\n\n'...Mi fa male la testa... dove sono? Non ricordo nemmeno il mio nome...'",
     "options": [
       {
         "id": "continue",
