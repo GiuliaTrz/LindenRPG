@@ -8,69 +8,53 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * Gestisce un combattimento a turni tra {@link Personaggio} e {@link Nemico}.
- * L'esecuzione è asincrona per non bloccare l'interfaccia utente.
- *
- * Il flusso è realizzato tramite {@link CompletableFuture} e {@code runAsync}
- * per evitare una ricorsione profonda e mantenere il codice reattivo.
+ * Versione per console: il combattimento è eseguito in modo sincrono,
+ * ma il metodo startBattle restituisce un CompletableFuture già completato
+ * per integrarsi con il flusso asincrono della GameEngine.
+ * Quando si passerà a JavaFX, bisognerà rendere il metodo veramente asincrono.
  */
 public class BattleManager {
+
     private final GameUI ui;
 
-    /**
-     * Crea un BattleManager associato a una specifica interfaccia utente.
-     * @param ui l'interfaccia utente (console, JavaFX, ...)
-     */
     public BattleManager(GameUI ui) {
         this.ui = ui;
     }
 
     /**
-     * Avvia il combattimento.
+     * Avvia il combattimento e lo esegue **sincronicamente**.
+     * Il metodo ritorna un {@link CompletableFuture} già completato
+     * per adattarsi alle catene di thenCompose/thenRun.
      *
      * @param player personaggio giocante
      * @param enemy  nemico da affrontare
-     * @return un {@link CompletableFuture} che si completa quando la battaglia termina
+     * @return un CompletableFuture<Void> completato quando la battaglia termina
      */
     public CompletableFuture<Void> startBattle(Personaggio player, Nemico enemy) {
-        CompletableFuture<Void> battleEnd = new CompletableFuture<>();
-        turnLoop(player, enemy, battleEnd);
-        return battleEnd;
-    }
+        // Esegui il combattimento sul thread corrente (non‑daemon)
+        while (player.isAlive() && enemy.isAlive()) {
+            ui.updateBattleStatus(player, enemy);
 
-    /**
-     * Loop dei turni. Ogni turno viene eseguito in un nuovo task asincrono.
-     */
-    private void turnLoop(Personaggio player, Nemico enemy, CompletableFuture<Void> endFuture) {
-        if (!player.isAlive() || !enemy.isAlive()) {
-            ui.battleResult(player.isAlive());
-            endFuture.complete(null);
-            return;
-        }
+            // Attende la scelta della skill (blocca il thread corrente)
+            Skill skill = ui.chooseSkill(player).join();
 
-        ui.updateBattleStatus(player, enemy);
-
-        ui.chooseSkill(player).thenCompose(skill -> {
             useSkill(player, enemy, skill);
+
             if (!enemy.isAlive()) {
-                ui.battleResult(true);
-                endFuture.complete(null);
-                return CompletableFuture.<Void>completedFuture(null);
+                break;
             }
 
-            // Turno nemico
+            // Turno del nemico
             int damage = enemy.getAttack();
             player.takeDamage(damage);
             ui.enemyTurnNotification(enemy, damage);
+        }
 
-            if (!player.isAlive()) {
-                ui.battleResult(false);
-                endFuture.complete(null);
-                return CompletableFuture.<Void>completedFuture(null);
-            }
+        // La battaglia è terminata
+        ui.battleResult(player.isAlive());
 
-            // Prossimo turno (nuova esecuzione asincrona)
-            return CompletableFuture.runAsync(() -> turnLoop(player, enemy, endFuture));
-        });
+        // Restituisce un future già completato
+        return CompletableFuture.completedFuture(null);
     }
 
     /**
