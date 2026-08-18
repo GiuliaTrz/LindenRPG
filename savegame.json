@@ -1,12 +1,12 @@
 {
   "player": {
-    "mageType": "TIDEWEAVER",
+    "mageType": "GUSTWEAVER",
     "inventory": [],
-    "name": "Lind",
-    "hp": 30,
-    "mp": 22,
-    "maxHp": 90,
-    "maxMp": 110
+    "name": "Liiiii",
+    "hp": 40,
+    "mp": 45,
+    "maxHp": 100,
+    "maxMp": 90
   },
   "lastDialogueId": "end"
 }

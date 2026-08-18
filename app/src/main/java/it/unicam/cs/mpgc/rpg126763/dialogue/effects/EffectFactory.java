@@ -1,6 +1,5 @@
-package it.unicam.cs.mpgc.rpg126763.dialogue;
+package it.unicam.cs.mpgc.rpg126763.dialogue.effects;
 
-import it.unicam.cs.mpgc.rpg126763.dialogue.effects.SetMageEffect;
 import it.unicam.cs.mpgc.rpg126763.models.MageType;
 import java.util.HashMap;
 import java.util.Map;

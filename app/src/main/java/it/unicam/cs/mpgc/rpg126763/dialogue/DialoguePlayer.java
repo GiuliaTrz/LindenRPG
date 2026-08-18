@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg126763.dialogue;
 
 import it.unicam.cs.mpgc.rpg126763.character.Personaggio;
+import it.unicam.cs.mpgc.rpg126763.dialogue.conditions.DialogueCondition;
 import it.unicam.cs.mpgc.rpg126763.ui.GameUI;
 
 import java.util.List;

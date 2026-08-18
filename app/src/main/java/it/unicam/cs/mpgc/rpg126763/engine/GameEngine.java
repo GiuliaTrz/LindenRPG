@@ -4,6 +4,8 @@ import it.unicam.cs.mpgc.rpg126763.battle.BattleManager;
 import it.unicam.cs.mpgc.rpg126763.character.Nemico;
 import it.unicam.cs.mpgc.rpg126763.character.Personaggio;
 import it.unicam.cs.mpgc.rpg126763.dialogue.*;
+import it.unicam.cs.mpgc.rpg126763.dialogue.effects.DialogueEffect;
+import it.unicam.cs.mpgc.rpg126763.dialogue.effects.EffectFactory;
 import it.unicam.cs.mpgc.rpg126763.persistence.SaveData;
 import it.unicam.cs.mpgc.rpg126763.persistence.SaveLoadException;
 import it.unicam.cs.mpgc.rpg126763.persistence.JsonSaveManager;
