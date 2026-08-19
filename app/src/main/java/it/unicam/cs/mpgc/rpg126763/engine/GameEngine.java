@@ -26,6 +26,7 @@ public class GameEngine {
     private final DialogueLoader dialogueLoader;
     private final EffectFactory effectFactory;
     private final ConditionFactory conditionFactory;
+    private String filePath;
 
     private Personaggio player;
     private String currentDialogueId;
@@ -45,6 +46,20 @@ public class GameEngine {
         this.effectFactory = new EffectFactory();
         this.conditionFactory = new ConditionFactory();
         this.enemyList = enemyList;
+    }
+
+    /**
+     * Crea il motore di gioco associato a una specifica interfaccia utente.
+     * @param ui l'interfaccia utente (console, JavaFX, ...)
+     */
+    public GameEngine(GameUI ui, List<Nemico> enemyList, String filePath) {
+        this.ui = ui;
+        this.dialogueLoader = new DialogueLoader();
+        this.effectFactory = new EffectFactory();
+        this.conditionFactory = new ConditionFactory();
+        this.enemyList = enemyList;
+        this.filePath = filePath;
+        this.saveManager = new JsonSaveManager(filePath);
     }
 
     /**

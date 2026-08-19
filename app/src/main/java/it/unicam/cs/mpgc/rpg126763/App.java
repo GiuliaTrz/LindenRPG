@@ -16,6 +16,7 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         ConsoleUI ui = new ConsoleUI();
+        Scanner scanner = new Scanner(System.in);
 
         ArrayList<Nemico> enemies = new ArrayList<>();
         enemies.add(new Nemico("Water slime", 50, 15));
@@ -23,9 +24,19 @@ public class App {
         enemies.add(new Nemico("Wind slime", 70, 15));
         enemies.add(new Nemico("Earth slime", 100, 10));
 
-        GameEngine engine = new GameEngine(ui, enemies);
+        GameEngine engine = null;
 
-        Scanner scanner = new Scanner(System.in);
+        System.out.println("Dove vuoi salvare i dati di salvataggio?");
+        String saveGamePath = scanner.nextLine();
+
+        if (saveGamePath.isBlank()){
+             engine = new GameEngine(ui, enemies);
+
+        }
+        else {
+             engine = new GameEngine(ui, enemies, saveGamePath);
+        }
+
         System.out.println("1) Nuova partita");
         System.out.println("2) Carica partita");
         System.out.print("Scelta > ");
