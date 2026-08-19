@@ -10,7 +10,13 @@ public class Dialogue {
     private String text;
     private String speaker;       // opzionale
     private List<Option> options;
+    public void setText(String text) {
+        this.text = text;
+    }
 
+    public void setSpeaker(String speaker) {
+        this.speaker = speaker;
+    }
     public String getId() { return id; }
     public String getText() { return text; }
     public String getSpeaker() { return speaker; }

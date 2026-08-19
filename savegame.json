@@ -1,7 +1,12 @@
 {
-  "name": "Linden",
-  "hp": 91,
-  "mp": 34,
-  "mageType": "TIDEWEAVER",
-  "inventory": []
+  "player": {
+    "mageType": "GUSTWEAVER",
+    "inventory": [],
+    "name": "Liiiii",
+    "hp": 40,
+    "mp": 45,
+    "maxHp": 100,
+    "maxMp": 90
+  },
+  "lastDialogueId": "end"
 }

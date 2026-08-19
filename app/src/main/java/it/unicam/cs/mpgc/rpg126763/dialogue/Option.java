@@ -9,7 +9,9 @@ public class Option {
     private String nextDialogueId;
     private String effect;        // chiave per EffectFactory
     private String condition;     // chiave per ConditionFactory (opzionale)
-
+    public void setText(String text) {
+        this.text = text;
+    }
     public String getId() { return id; }
     public String getText() { return text; }
     public String getNextDialogueId() { return nextDialogueId; }

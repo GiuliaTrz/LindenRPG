@@ -1,7 +1,6 @@
 package it.unicam.cs.mpgc.rpg126763.dialogue.effects;
 
 import it.unicam.cs.mpgc.rpg126763.character.Personaggio;
-import it.unicam.cs.mpgc.rpg126763.dialogue.DialogueEffect;
 import it.unicam.cs.mpgc.rpg126763.models.MageType;
 
 /**

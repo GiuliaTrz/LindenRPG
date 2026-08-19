@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg126763.dialogue;
 
 import it.unicam.cs.mpgc.rpg126763.character.Personaggio;
+import it.unicam.cs.mpgc.rpg126763.dialogue.conditions.DialogueCondition;
 import it.unicam.cs.mpgc.rpg126763.ui.GameUI;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class DialoguePlayer {
     private final GameUI ui;
     private final ConditionFactory conditionFactory;
     private final Personaggio player;
+    private ConstantManager constantManager;
 
     public DialoguePlayer(Map<String, Dialogue> dialogues, GameUI ui,
                           ConditionFactory conditionFactory, Personaggio player) {
@@ -25,23 +27,30 @@ public class DialoguePlayer {
         this.ui = ui;
         this.conditionFactory = conditionFactory;
         this.player = player;
+        this.constantManager = new ConstantManager();
+        setConstant();
+        constantManager.apply(dialogues);
+    }
+
+    private void setConstant(){
+        this.constantManager.setConstant("playerName", player.getName());
     }
 
     /**
      * Esegue il dialogo a partire da un ID
      * @param startId ID del nodo iniziale
-     * @return CompletableFuture che completa con l'ultimo effetto scelto (o null)
+     * @return CompletableFuture che completa con un DialogueResult
      */
-    public CompletableFuture<String> play(String startId) {
-        CompletableFuture<String> future = new CompletableFuture<>();
+    public CompletableFuture<DialogueResult> play(String startId) {
+        CompletableFuture<DialogueResult> future = new CompletableFuture<>();
         processNode(startId, null, future);
         return future;
     }
 
-    private void processNode(String nodeId, String lastEffect, CompletableFuture<String> future) {
+    private void processNode(String nodeId, String lastEffect, CompletableFuture<DialogueResult> future) {
         Dialogue current = dialogues.get(nodeId);
         if (current == null) {
-            future.complete(lastEffect);
+            future.complete(new DialogueResult(lastEffect, nodeId));
             return;
         }
 
@@ -52,7 +61,7 @@ public class DialoguePlayer {
         ui.showMessage(text);
 
         if (!current.hasOptions()) {
-            future.complete(lastEffect);
+            future.complete(new DialogueResult(lastEffect, current.getId()));
             return;
         }
 
@@ -65,7 +74,7 @@ public class DialoguePlayer {
                 .collect(Collectors.toList());
 
         if (validOptions.isEmpty()) {
-            future.complete(lastEffect);
+            future.complete(new DialogueResult(lastEffect, current.getId()));
             return;
         }
 
