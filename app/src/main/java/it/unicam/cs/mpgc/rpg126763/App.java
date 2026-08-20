@@ -3,12 +3,16 @@ package it.unicam.cs.mpgc.rpg126763;
 import it.unicam.cs.mpgc.rpg126763.character.Nemico;
 import it.unicam.cs.mpgc.rpg126763.engine.GameEngine;
 import it.unicam.cs.mpgc.rpg126763.ui.ConsoleUI;
+import it.unicam.cs.mpgc.rpg126763.ui.MainWindowController;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,14 +25,21 @@ import java.util.Scanner;
 public class App extends Application {
 
     @Override
-    public void start(Stage stage) {
-        String javaVersion = System.getProperty("java.version");
-        String javafxVersion = System.getProperty("javafx.version");
-        Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
-        Scene scene = new Scene(new StackPane(l), 640, 480);
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) throws IOException {
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
+        StackPane root = loader.load();
+
+        MainWindowController controller = loader.getController();
+
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("LindenRPG");
+     //   scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
+
     public static void main(String[] args) {
 
         launch();

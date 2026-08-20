@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane prefHeight="400.0" prefWidth="600.0"
+           xmlns="http://javafx.com/javafx/23.0.1"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="it.unicam.cs.mpgc.rpg126763.ui.MainWindowController">
+   <children>
+      <!-- uso stackpane e poi una vbox per impilare i bottoni verticalmente, con spaziatura -->
+      <VBox alignment="CENTER" spacing="20.0">
+         <children>
+            <Button fx:id="newGameButton"
+                    alignment="CENTER"
+                    prefHeight="56.0" prefWidth="150.0"
+                    text="Nuova partita"
+                    onAction="#handleNewGame"/>
+
+            <Button fx:id="loadGameButton"
+                    alignment="CENTER"
+                    prefHeight="56.0" prefWidth="150.0"
+                    text="Carica partita"
+                    onAction="#handleLoadGame"/>
+         </children>
+      </VBox>
+   </children>
+</StackPane>
