@@ -8,7 +8,7 @@ public interface SaveManager {
     /**
      * Salva un oggetto {@link SaveData} su file.
      * @param data     dati da salvare
-     * @throws SaveLoadException se il salvataggio fallisce (es. errore di I/O)
+     * @throws SaveLoadException se il salvataggio fallisce
      */
     void save(SaveData data) throws SaveLoadException;
 

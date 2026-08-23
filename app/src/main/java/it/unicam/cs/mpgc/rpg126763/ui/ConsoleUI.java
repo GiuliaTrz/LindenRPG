@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 /**
  * Implementazione testuale di GameUI.
- * Usa System.out per mostrare messaggi e Scanner per leggere input.
  */
 public class ConsoleUI implements GameUI {
     private final Scanner scanner = new Scanner(System.in);
@@ -53,6 +52,6 @@ public class ConsoleUI implements GameUI {
 
     @Override
     public void battleResult(boolean playerWon) {
-        System.out.println(playerWon ? "Hai vinto!" : "Sei stato sconfitto...");
+        System.out.println(playerWon ? "Hai vinto!" : "Oh no! Sei stato sconfitto...");
     }
 }

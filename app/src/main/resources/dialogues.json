@@ -11,12 +11,13 @@
         "effect": null,
         "condition": null
       }
-    ]
+    ],
+    "battle": false
   },
   {
     "id": "forest_1",
     "speaker": null,
-    "text": "La foresta è così silenziosa... Troppo silenziosa...\nSento come delle presenze attorno a me...",
+    "text": "La foresta e cosi silenziosa... Troppo silenziosa...\nSento come delle presenze attorno a me...",
     "options": [
       {
         "id": "continue",
@@ -25,12 +26,13 @@
         "effect": null,
         "condition": null
       }
-    ]
+    ],
+    "battle": false
   },
   {
     "id": "monster_1",
     "speaker": null,
-    "text": "Una forma oscura si muove tra gli alberi a grande velocità.\n\nOh no! Un mostro!",
+    "text": "Una forma oscura si muove tra gli alberi a grande velocita.\n\nOh no! Un mostro!",
     "options": [
       {
         "id": "fear",
@@ -39,12 +41,13 @@
         "effect": null,
         "condition": null
       }
-    ]
+    ],
+    "battle": false
   },
   {
     "id": "ermine_1",
     "speaker": "Ermellino",
-    "text": "Il mostro si ferma.\nPoi... cosa succede?\nIl pelo si ammorbidisce, e il suo corpo si rimpicciolisce.\n\nUn piccolo ermellino soffice ti osserva.\n\n'Ok ok... va meglio così?'\n\nLinden: 'Cosa...?'",
+    "text": "Il mostro si ferma.\nPoi... cosa succede?\nIl pelo si ammorbidisce, e il suo corpo si rimpicciolisce.\n\nUn piccolo ermellino soffice ti osserva.\n\n'Ok ok... va meglio cosi?'\n\nLinden: 'Cosa...?'",
     "options": [
       {
         "id": "continue",
@@ -53,12 +56,13 @@
         "effect": null,
         "condition": null
       }
-    ]
+    ],
+    "battle": false
   },
   {
     "id": "ermine_2",
     "speaker": "Ermellino",
-    "text": "L’ermellino scuote la testa.\n\n'Kairi mi aveva accennato al fatto che ti spaventi così facilmente. Comunque...'\n\n'Non ho molto tempo. Prendi solo uno di questi.'\n\nQuattro forze elementali appaiono davanti a te.",
+    "text": "L'ermellino scuote la testa.\n\n'Kairi mi aveva accennato al fatto che ti spaventi cosi facilmente. Comunque...'\n\n'Non ho molto tempo. Prendi solo uno di questi.'\n\nQuattro forze elementali appaiono davanti a te.",
     "options": [
       {
         "id": "continue",
@@ -67,12 +71,13 @@
         "effect": null,
         "condition": null
       }
-    ]
+    ],
+    "battle": false
   },
   {
     "id": "choice_1",
     "speaker": null,
-    "text": "L’aria cambia.\n\nUna fiamma fluttua, viva, calda.\nUna goccia d’acqua sospesa, delicata..\nUna piuma, che ruota in un vento invisibile e impalpabile.\nUna piccola pietra muschiosa pulsa e fluttua.\n\nNon sono oggetti.\nSono... scelte. Quale elemento ti attira?",
+    "text": "L'aria cambia.\n\nUna fiamma fluttua, viva, calda.\nUna goccia d'acqua sospesa, delicata.\nUna piuma, che ruota in un vento invisibile e impalpabile.\nUna piccola pietra muschiosa pulsa e fluttua.\n\nNon sono oggetti.\nSono... scelte. Quale elemento ti attira?",
     "options": [
       {
         "id": "EMBER",
@@ -83,7 +88,7 @@
       },
       {
         "id": "TIDE",
-        "text": "...la goccia d’acqua",
+        "text": "...la goccia d'acqua",
         "nextDialogueId": "after_choice",
         "effect": "SET_MAGE_TIDE",
         "condition": null
@@ -102,26 +107,51 @@
         "effect": "SET_MAGE_EARTH",
         "condition": null
       }
-    ]
+    ],
+    "battle": false
   },
   {
     "id": "after_choice",
     "speaker": "Ermellino",
-    "text": "L’ermellino osserva in silenzio.\n\n'Bene... ha scelto te.'\n\nL'aria cambia.\n Beh... il resto lo scoprirai presto. \n Adesso sei un mago.",
+    "text": "L'ermellino osserva in silenzio.\n\n'Bene... ha scelto te.'\n\nL'aria cambia.\nBeh... il resto lo scoprirai presto.\nAdesso sei un mago.",
     "options": [
       {
         "id": "continue",
-        "text": "Avanza verso l’ignoto",
-        "nextDialogueId": "end",
+        "text": "Avanza verso l'ignoto",
+        "nextDialogueId": "battle_intro",
         "effect": null,
         "condition": null
       }
-    ]
+    ],
+    "battle": false
+  },
+  {
+    "id": "battle_intro",
+    "speaker": null,
+    "text": "Senti un rumore tra gli alberi...\nLe foglie scricchiolano...\n\nOh no! Un mostro ti sta attaccando!",
+    "options": [
+      {
+        "id": "fight",
+        "text": "Preparati al combattimento!",
+        "nextDialogueId": "battle_start",
+        "effect": null,
+        "condition": null
+      }
+    ],
+    "battle": false
+  },
+  {
+    "id": "battle_start",
+    "speaker": null,
+    "text": "",
+    "options": null,
+    "battle": true
   },
   {
     "id": "end",
     "speaker": null,
-    "text": "Un mago...\ncosa significa?",
-    "options": null
+    "text": "Quindi ora sono... un mago...\n?",
+    "options": null,
+    "battle": false
   }
 ]

@@ -14,7 +14,7 @@ import java.io.*;
 public class JsonSaveManager implements SaveManager {
     private final Gson gson;
     private String filePath;
-//save manager: interfaccia con save e load e senza file path sui metodi
+    //save manager: interfaccia con save e load e senza file path sui metodi
     //json save manager implementa interfaccia e nel costruttore passo il file e implemento metodi
     public JsonSaveManager(String filePath) {
         this.filePath = filePath;
@@ -35,18 +35,13 @@ public class JsonSaveManager implements SaveManager {
     }
 
     /**
-     * Carica un file di salvataggio e ripristina i massimi delle statistiche.
+     * Carica un file di salvataggio ripristinando i dati
      * @return i dati caricati
      * @throws SaveLoadException se il file non esiste o è illeggibile
      */
     public SaveData load() throws SaveLoadException {
         try (FileReader reader = new FileReader(filePath)) {
             SaveData data = gson.fromJson(reader, SaveData.class);
-            if (data != null && data.getPlayer() != null) {
-                // Dopo la deserializzazione, i massimali potrebbero essere errati:
-                // li ricalcoliamo per coerenza.
-                data.getPlayer().recalculateMaxStats();
-            }
             return data;
         } catch (IOException e) {
             throw new SaveLoadException("Caricamento fallito: " + filePath, e);

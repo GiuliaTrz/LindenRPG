@@ -1,0 +1,21 @@
+{
+  "player": {
+    "mageType": "TIDEWEAVER",
+    "inventory": [],
+    "dialogueId": "battle_start",
+    "name": "Caramel",
+    "hp": 45,
+    "mp": 80,
+    "maxHp": 90,
+    "maxMp": 110
+  },
+  "enemy": {
+    "attack": 15,
+    "name": "Wind Slime",
+    "hp": 55,
+    "mp": 0,
+    "maxHp": 70,
+    "maxMp": 0
+  },
+  "lastDialogueId": "battle_start"
+}

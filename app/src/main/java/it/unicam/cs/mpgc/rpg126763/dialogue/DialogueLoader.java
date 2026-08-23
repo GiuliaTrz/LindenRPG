@@ -2,6 +2,7 @@ package it.unicam.cs.mpgc.rpg126763.dialogue;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 
 /**
  * Carica i dialoghi dal file JSON nel classpath.
+ * Il file deve essere nella cartella resources/ (es. resources/dialogues.json).
  */
 public class DialogueLoader {
 
