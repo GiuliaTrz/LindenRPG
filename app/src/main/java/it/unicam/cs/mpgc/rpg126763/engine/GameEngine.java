@@ -25,6 +25,8 @@ public class GameEngine {
     private final EffectFactory effectFactory;
     private final ConditionFactory conditionFactory;
     private final String filePath;
+
+
     private GameState gameState;
 
     private final List<Nemico> enemyList;
@@ -116,4 +118,13 @@ public class GameEngine {
                     }
                 });
     }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
 }
