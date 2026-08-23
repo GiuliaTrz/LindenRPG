@@ -7,13 +7,13 @@ import it.unicam.cs.mpgc.rpg126763.character.Personaggio;
  * Container per i dati da salvare/caricare,
  * Include il personaggio, il nemico e l'ID dell'ultimo dialogo raggiunto (checkpoint raggiunto).
  */
-public class SaveData {
+public class GameState {
     private Personaggio player;
     private Nemico enemy;
-    private String lastDialogueId;
+    private String currentDialogueId;
 
     /** Costruttore vuoto per Gson */
-    public SaveData() {}
+    public GameState() {}
 
     public Nemico getEnemy() {
         return enemy;
@@ -23,25 +23,34 @@ public class SaveData {
         this.enemy = enemy;
     }
 
+    @Override
+    public String toString() {
+        return "GameState{" +
+                "player=" + player +
+                ", enemy=" + enemy +
+                ", currentDialogueId='" + currentDialogueId + '\'' +
+                '}';
+    }
+
     /**
      * Crea un nuovo oggetto con i dati specificati.
      * @param player          personaggio da salvare
      * @param enemy            nemico da salvare
-     * @param lastDialogueId  ID dell'ultimo nodo di dialogo raggiunto
+     * @param currentDialogueId  ID dell'ultimo nodo di dialogo raggiunto
      */
-    public SaveData(Personaggio player, Nemico enemy, String lastDialogueId) {
+    public GameState(Personaggio player, Nemico enemy, String currentDialogueId) {
         this.player = player;
         this.enemy = enemy;
-        this.lastDialogueId = lastDialogueId;
+        this.currentDialogueId= currentDialogueId;
     }
 
     public Personaggio getPlayer() {
         return player; }
-    public String getLastDialogueId() {
-        return lastDialogueId; }
+    public String getCurrentDialogueId() {
+        return currentDialogueId; }
 
     public void setPlayer(Personaggio player) {
         this.player = player; }
-    public void setLastDialogueId(String lastDialogueId) {
-        this.lastDialogueId = lastDialogueId; }
+    public void setCurrentDialogueId(String currentDialogueId) {
+        this.currentDialogueId = currentDialogueId; }
 }

@@ -3,6 +3,7 @@ package it.unicam.cs.mpgc.rpg126763.battle;
 import it.unicam.cs.mpgc.rpg126763.character.Nemico;
 import it.unicam.cs.mpgc.rpg126763.character.Personaggio;
 import it.unicam.cs.mpgc.rpg126763.models.Skill;
+import it.unicam.cs.mpgc.rpg126763.persistence.GameState;
 import it.unicam.cs.mpgc.rpg126763.ui.GameUI;
 
 import java.util.concurrent.CompletableFuture;
@@ -15,8 +16,9 @@ public class BattleManager {
         this.ui = ui;
     }
 
-    public CompletableFuture<Void> startBattle(Personaggio player, Nemico enemy) {
-        return executeTurn(player, enemy);
+    public CompletableFuture<Void> startBattle(GameState gameState) {
+
+        return executeTurn(gameState.getPlayer(), gameState.getEnemy());
     }
 
     private CompletableFuture<Void> executeTurn(Personaggio player, Nemico enemy) {

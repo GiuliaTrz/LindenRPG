@@ -12,23 +12,10 @@ public class Personaggio extends CombatCharacter {
     private MageType mageType;
     private Equip weapon;
     private List<Item> inventory = new ArrayList<>();
-    private String dialogueId;
-
-    public String getDialogueId() {
-        return dialogueId;
-    }
-
-    public void setDialogueId(String dialogueId) {
-        this.dialogueId = dialogueId;
-    }
-
-
 
     public Personaggio() {}
-
     public Personaggio(String name) {
         super(name, 100, 50);
-        dialogueId = "start";
     }
 
     public MageType getMageType() { return mageType; }

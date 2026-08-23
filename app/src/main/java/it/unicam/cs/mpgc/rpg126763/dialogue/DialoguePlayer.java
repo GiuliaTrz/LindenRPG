@@ -3,6 +3,7 @@ package it.unicam.cs.mpgc.rpg126763.dialogue;
 import it.unicam.cs.mpgc.rpg126763.character.Personaggio;
 import it.unicam.cs.mpgc.rpg126763.dialogue.conditions.ConditionFactory;
 import it.unicam.cs.mpgc.rpg126763.dialogue.conditions.DialogueCondition;
+import it.unicam.cs.mpgc.rpg126763.persistence.GameState;
 import it.unicam.cs.mpgc.rpg126763.ui.GameUI;
 
 import java.util.List;
@@ -15,23 +16,24 @@ public class DialoguePlayer {
     private final Map<String, Dialogue> dialogues;
     private final GameUI ui;
     private final ConditionFactory conditionFactory;
-    private final Personaggio player;
     private final ConstantManager constantManager;
+    private GameState gameState;
 
     public DialoguePlayer(Map<String, Dialogue> dialogues, GameUI ui,
-                          ConditionFactory conditionFactory, Personaggio player) {
+                          ConditionFactory conditionFactory, GameState gameState) {
+        this.gameState = gameState;
         this.dialogues = dialogues;
         this.ui = ui;
         this.conditionFactory = conditionFactory;
-        this.player = player;
         this.constantManager = new ConstantManager();
         setConstants();
         constantManager.apply(dialogues);
+
     }
 
     private void setConstants() {
 
-        constantManager.setConstant("playerName", player.getName());
+        constantManager.setConstant("playerName", gameState.getPlayer().getName());
     }
 
     public CompletableFuture<DialogueResult> play(String startId) {
@@ -39,7 +41,7 @@ public class DialoguePlayer {
     }
 
     private CompletableFuture<DialogueResult> processNode(String nodeId, String lastEffect) {
-        this.player.setDialogueId(nodeId);
+        gameState.setCurrentDialogueId(nodeId);
         nodeId = nodeId.trim();
         Dialogue current = dialogues.get(nodeId);
         if (current == null) {
@@ -60,7 +62,7 @@ public class DialoguePlayer {
                 .filter(opt -> {
                     if (opt.getCondition() == null) return true;
                     DialogueCondition cond = conditionFactory.get(opt.getCondition());
-                    return cond != null && cond.check(player);
+                    return cond != null && cond.check(gameState.getPlayer());
                 })
                 .collect(Collectors.toList());
 

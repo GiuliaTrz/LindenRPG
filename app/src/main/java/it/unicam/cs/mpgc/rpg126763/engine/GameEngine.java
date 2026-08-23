@@ -7,7 +7,7 @@ import it.unicam.cs.mpgc.rpg126763.dialogue.*;
 import it.unicam.cs.mpgc.rpg126763.dialogue.conditions.ConditionFactory;
 import it.unicam.cs.mpgc.rpg126763.dialogue.effects.DialogueEffect;
 import it.unicam.cs.mpgc.rpg126763.dialogue.effects.EffectFactory;
-import it.unicam.cs.mpgc.rpg126763.persistence.SaveData;
+import it.unicam.cs.mpgc.rpg126763.persistence.GameState;
 import it.unicam.cs.mpgc.rpg126763.persistence.SaveLoadException;
 import it.unicam.cs.mpgc.rpg126763.persistence.JsonSaveManager;
 import it.unicam.cs.mpgc.rpg126763.ui.GameUI;
@@ -25,11 +25,9 @@ public class GameEngine {
     private final EffectFactory effectFactory;
     private final ConditionFactory conditionFactory;
     private final String filePath;
+    private GameState gameState;
 
-    private Personaggio player;
-    private volatile String  currentDialogueId;
     private final List<Nemico> enemyList;
-    private Nemico enemy;
 
     public GameEngine(GameUI ui, List<Nemico> enemyList, String filePath) {
         this.ui = ui;
@@ -39,27 +37,24 @@ public class GameEngine {
         this.effectFactory = new EffectFactory();
         this.conditionFactory = new ConditionFactory();
         this.saveManager = new JsonSaveManager(filePath);
+        this.gameState = new GameState();
     }
 
     public void startNewGame(String playerName) {
         String finalName = (playerName == null || playerName.isBlank()) ? "Linden" : playerName;
-        player = new Personaggio(finalName);
-        currentDialogueId = player.getDialogueId();
+        gameState.setPlayer(new Personaggio(finalName));
+        gameState.setCurrentDialogueId("start");
 
-        ui.showMessage("Nuova avventura per " + player.getName());
+        ui.showMessage("Nuova avventura per " + gameState.getPlayer().getName());
         ui.onGameStarted();
-
+        System.out.println(gameState.toString());
         runCurrentDialogue();
     }
 
     public void loadGame() {
         try {
-            SaveData data = saveManager.load();
-            this.player = data.getPlayer();
-            this.currentDialogueId = player.getDialogueId() != null ? player.getDialogueId() : "start";
-            this.enemy = data.getEnemy();
-
-            ui.showMessage("Partita caricata: " + player.getName());
+            this.gameState = saveManager.load();
+            ui.showMessage("Partita caricata: " + gameState.getPlayer().getName());
             ui.onGameStarted();
 
             runCurrentDialogue();
@@ -71,9 +66,7 @@ public class GameEngine {
 
     public void saveGame() {
         try {
-            SaveData data = new SaveData(player, enemy, currentDialogueId);
-            System.out.println("GameEngine: " + this.currentDialogueId);
-            saveManager.save(data);
+            saveManager.save(gameState);
 
             ui.showMessage("Partita salvata.");
         } catch (SaveLoadException e) {
@@ -83,16 +76,15 @@ public class GameEngine {
 
     private void runCurrentDialogue() {
         Map<String, Dialogue> dialogues = dialogueLoader.loadFromResource("dialogues.json");
-        DialoguePlayer dialoguePlayer = new DialoguePlayer(dialogues, ui, conditionFactory, player);
+        DialoguePlayer dialoguePlayer = new DialoguePlayer(dialogues, ui, conditionFactory, gameState);
 
-        dialoguePlayer.play(currentDialogueId)
+        dialoguePlayer.play(gameState.getCurrentDialogueId())
                 .thenCompose(result -> {
-                    this.currentDialogueId = result.lastDialogueId();
-                    System.out.println("GameEngine2: " + this.currentDialogueId);
+                    this.gameState.setCurrentDialogueId(result.lastDialogueId());
                     if (result.effectKey() != null) {
                         DialogueEffect effect = effectFactory.get(result.effectKey());
                         if (effect != null) {
-                            effect.apply(player);
+                            effect.apply(gameState.getPlayer());
                             String desc = effect.getDescription();
                             if (desc != null) {
                                 ui.showMessage(desc);
@@ -101,21 +93,20 @@ public class GameEngine {
                     }
 
                     if (result.battle()) {
-                        if (enemy==null) {
-                            enemy = enemyList.get(new Random().nextInt(enemyList.size()));
+                        if (gameState.getEnemy()==null) {
+                            gameState.setEnemy(enemyList.get(new Random().nextInt(enemyList.size())));
                         }
-                        ui.showMessage("Un " + enemy.getName() + " appare! Preparati al combattimento!");
+                        ui.showMessage("Un " + gameState.getEnemy().getName() + " appare! Preparati al combattimento!");
                         BattleManager battleManager = new BattleManager(ui);
-                        return battleManager.startBattle(player, enemy);
+                        return battleManager.startBattle(gameState);
                     } else {
                         return CompletableFuture.completedFuture(null);
                     }
                 })
                 .thenRun(() -> {
-                    if (!"end".equals(currentDialogueId)) {
+                    if (!"end".equals(gameState.getCurrentDialogueId())) {
                         try {
-                            SaveData data = new SaveData(player, enemy, currentDialogueId);
-                            saveManager.save(data);
+                            saveManager.save(gameState);
                             ui.showMessage("Partita salvata.");
                         } catch (SaveLoadException e) {
                             ui.showMessage("Errore salvataggio: " + e.getMessage());
