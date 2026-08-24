@@ -1,18 +1,13 @@
 package it.unicam.cs.mpgc.rpg126763.battle;
 
-import it.unicam.cs.mpgc.rpg126763.character.*;
+import it.unicam.cs.mpgc.rpg126763.character.Nemico;
+import it.unicam.cs.mpgc.rpg126763.character.Personaggio;
 import it.unicam.cs.mpgc.rpg126763.models.Skill;
+import it.unicam.cs.mpgc.rpg126763.persistence.GameState;
 import it.unicam.cs.mpgc.rpg126763.ui.GameUI;
 
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Gestisce un combattimento a turni tra {@link Personaggio} e {@link Nemico}.
- * Versione per console: il combattimento è eseguito in modo sincrono,
- * ma il metodo startBattle restituisce un CompletableFuture già completato
- * per integrarsi con il flusso asincrono della GameEngine.
- * Quando si passerà a JavaFX, bisognerà rendere il metodo veramente asincrono.
- */
 public class BattleManager {
 
     private final GameUI ui;
@@ -21,45 +16,42 @@ public class BattleManager {
         this.ui = ui;
     }
 
-    /**
-     * Avvia il combattimento e lo esegue **sincronicamente**.
-     * Il metodo ritorna un {@link CompletableFuture} già completato
-     * per adattarsi alle catene di thenCompose/thenRun.
-     *
-     * @param player personaggio giocante
-     * @param enemy  nemico da affrontare
-     * @return un CompletableFuture<Void> completato quando la battaglia termina
-     */
-    public CompletableFuture<Void> startBattle(Personaggio player, Nemico enemy) {
-        // Esegui il combattimento sul thread corrente (non‑daemon)
-        while (player.isAlive() && enemy.isAlive()) {
-            ui.updateBattleStatus(player, enemy);
+    public CompletableFuture<Void> startBattle(GameState gameState) {
 
-            // Attende la scelta della skill (blocca il thread corrente)
-            Skill skill = ui.chooseSkill(player).join();
+        return executeTurn(gameState.getPlayer(), gameState.getEnemy());
+    }
 
-            useSkill(player, enemy, skill);
+    private CompletableFuture<Void> executeTurn(Personaggio player, Nemico enemy) {
+        if (!player.isAlive() || !enemy.isAlive()) {
+            ui.battleResult(player.isAlive());
+            return CompletableFuture.completedFuture(null);
+        }
 
-            if (!enemy.isAlive()) {
-                break;
+        ui.updateBattleStatus(player, enemy);
+
+        return ui.chooseSkill(player).thenCompose(skill -> {
+            if (skill != null) {
+                useSkill(player, enemy, skill);
             }
 
-            // Turno del nemico
+            if (!enemy.isAlive()) {
+                ui.battleResult(true);
+                return CompletableFuture.completedFuture(null);
+            }
+
             int damage = enemy.getAttack();
             player.takeDamage(damage);
             ui.enemyTurnNotification(enemy, damage);
-        }
 
-        // La battaglia è terminata
-        ui.battleResult(player.isAlive());
+            if (!player.isAlive()) {
+                ui.battleResult(false);
+                return CompletableFuture.completedFuture(null);
+            }
 
-        // Restituisce un future già completato
-        return CompletableFuture.completedFuture(null);
+            return executeTurn(player, enemy);
+        });
     }
 
-    /**
-     * Applica l'effetto di una skill scelta dal giocatore.
-     */
     private void useSkill(Personaggio player, Nemico enemy, Skill skill) {
         if (player.getMp() < skill.getCostMp()) {
             ui.showMessage("MP insufficienti!");
@@ -75,7 +67,7 @@ public class BattleManager {
 
         if (skill.getHeal() > 0) {
             player.heal(skill.getHeal());
-            ui.showMessage("Ti curi con " + skill.getHeal() + " HP");
+            ui.showMessage("Ti curi con " + skill.getHeal() + " HP/MP!");
         }
     }
 }

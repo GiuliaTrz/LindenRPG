@@ -1,0 +1,11 @@
+{
+  "player": {
+    "inventory": [],
+    "name": "Caramel",
+    "hp": 100,
+    "mp": 50,
+    "maxHp": 100,
+    "maxMp": 50
+  },
+  "currentDialogueId": "start"
+}

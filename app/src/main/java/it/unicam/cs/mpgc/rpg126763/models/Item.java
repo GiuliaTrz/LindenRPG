@@ -19,23 +19,28 @@ public class Item {
     }
 
     public String getName() {
+
         return name;
     }
 
     public String getDescription() {
+
         return description;
     }
 
     public ItemType getType() {
+
         return type;
     }
 
     public int getValue() {
+
         return value;
     }
 
     @Override
     public String toString() {
+
         return name + " (" + type + ") - " + description;
     }
 }

@@ -1,14 +1,12 @@
-package it.unicam.cs.mpgc.rpg126763.dialogue;
+package it.unicam.cs.mpgc.rpg126763.dialogue.conditions;
 
-import it.unicam.cs.mpgc.rpg126763.dialogue.conditions.*;
 import it.unicam.cs.mpgc.rpg126763.models.MageType;
+
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * questa factory mappa le chiavi di condizione alle implementazion
- */
 public class ConditionFactory {
+
     private final Map<String, DialogueCondition> conditions = new HashMap<>();
 
     public ConditionFactory() {

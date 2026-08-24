@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0"
+            style="-fx-background-image: url('/it/unicam/cs/mpgc/rpg126763/images/LindenRPG.png');
+                  -fx-background-size: cover;
+                  -fx-background-position: center center;
+                  -fx-background-repeat: no-repeat;"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.unicam.cs.mpgc.rpg126763.ui.MainWindowController">
+   <children>
+      <VBox alignment="CENTER" spacing="8.0"
+            AnchorPane.bottomAnchor="15.0"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button fx:id="newGameButton"
+                    text="Nuova partita"
+                    prefHeight="32.0" prefWidth="160.0"
+                    onAction="#handleNewGame"
+                    style="-fx-background-color: rgba(76, 111, 64, 0.85);
+                               -fx-text-fill: #f5f0e6;
+                               -fx-font-size: 12px;
+                               -fx-font-weight: bold;
+                               -fx-font-family: 'Verdana';
+                               -fx-background-radius: 10;
+                               -fx-cursor: hand;
+                               -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 4, 0, 0, 2);" />
+
+            <Button fx:id="loadGameButton"
+                    text="Carica partita"
+                    prefHeight="32.0" prefWidth="160.0"
+                    onAction="#handleLoadGame"
+                    style="-fx-background-color: rgba(139, 105, 64, 0.85);
+                               -fx-text-fill: #f5f0e6;
+                               -fx-font-size: 12px;
+                               -fx-font-weight: bold;
+                               -fx-font-family: 'Verdana';
+                               -fx-background-radius: 10;
+                               -fx-cursor: hand;
+                               -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 4, 0, 0, 2);" />
+
+            <Button fx:id="btnSavedFiles"
+                    text="Gestisci salvataggi"
+                    prefHeight="32.0" prefWidth="160.0"
+                    onAction="#handleSavedFiles"
+                    style="-fx-background-color: rgba(173, 122, 65, 0.85);
+                               -fx-text-fill: #f5f0e6;
+                               -fx-font-size: 12px;
+                               -fx-font-weight: bold;
+                               -fx-font-family: 'Verdana';
+                               -fx-background-radius: 10;
+                               -fx-cursor: hand;
+                               -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 4, 0, 0, 2);" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

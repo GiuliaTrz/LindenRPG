@@ -2,7 +2,7 @@ package it.unicam.cs.mpgc.rpg126763.character;
 
 /**
  * E' un nemico generico; estende {@link CombatCharacter}
- * aggiungendo un attacco base fisso.
+ * aggiungendo un attacco base fisso
  */
 public class Nemico extends CombatCharacter {
     private int attack;
@@ -11,7 +11,18 @@ public class Nemico extends CombatCharacter {
     public Nemico() {}
 
     /**
-     * Crea un nemico con i parametri indicati.
+     * Crea un nemico con i parametri indicati
+     * @param name   nome
+     * @param hp     punti vita (nessun MP)
+     * @param attack danno inflitto per attacco
+     */
+    public Nemico(String name, int hp, int attack, String imagePath) {
+        super(name, hp, 0, imagePath);
+        this.attack = attack;
+    }
+
+    /**
+     * Crea un nemico con i parametri indicati
      * @param name   nome
      * @param hp     punti vita (nessun MP)
      * @param attack danno inflitto per attacco

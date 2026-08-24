@@ -1,20 +1,60 @@
 package it.unicam.cs.mpgc.rpg126763.dialogue;
 
 /**
- * Una scelta in un dialogo. Può avere condizione ed effetto.
+ * Rappresenta una singola opzione di scelta in un nodo di dialogo.
+ * Può avere una condizione (per apparire solo se il giocatore soddisfa certi requisiti)
+ * e un effetto (che modifica lo stato del giocatore).
  */
 public class Option {
     private String id;
     private String text;
     private String nextDialogueId;
-    private String effect;        // chiave per EffectFactory
-    private String condition;     // chiave per ConditionFactory (opzionale)
-    public void setText(String text) {
+    private String effect;        // chiave per EffectFactory (può essere null) :nota, da togliere
+    private String condition;     // chiave per ConditionFactory (può essere null) :nota, da togliere
+
+    public Option() {}
+
+    public Option(String id, String text, String nextDialogueId, String effect, String condition) {
+        this.id = id;
         this.text = text;
+        this.nextDialogueId = nextDialogueId;
+        this.effect = effect;
+        this.condition = condition;
     }
-    public String getId() { return id; }
-    public String getText() { return text; }
-    public String getNextDialogueId() { return nextDialogueId; }
-    public String getEffect() { return effect; }
-    public String getCondition() { return condition; }
+
+    public String getId() {
+        return id; }
+    public void setId(String id) {
+        this.id = id; }
+
+    public String getText() {
+        return text; }
+    public void setText(String text) {
+        this.text = text; }
+
+    public String getNextDialogueId() {
+        return nextDialogueId; }
+    public void setNextDialogueId(String nextDialogueId) {
+        this.nextDialogueId = nextDialogueId; }
+
+    public String getEffect() {
+        return effect; }
+    public void setEffect(String effect) {
+        this.effect = effect; }
+
+    public String getCondition() {
+        return condition; }
+    public void setCondition(String condition) {
+        this.condition = condition; }
+
+    @Override
+    public String toString() {
+        return "Option{" +
+                "id='" + id + '\'' +
+                ", text='" + text + '\'' +
+                ", nextDialogueId='" + nextDialogueId + '\'' +
+                ", effect='" + effect + '\'' +
+                ", condition='" + condition + '\'' +
+                '}';
+    }
 }
