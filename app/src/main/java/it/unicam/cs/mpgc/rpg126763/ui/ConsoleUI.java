@@ -31,6 +31,16 @@ public class ConsoleUI implements GameUI {
     }
 
     @Override
+    public void setEnemyImage(String imagePath) {
+
+    }
+
+    @Override
+    public void setSpeakerImage(String speakerName) {
+
+    }
+
+    @Override
     public void updateBattleStatus(CombatCharacter player, CombatCharacter enemy) {
         System.out.printf("HP: %d/%d MP: %d/%d | Nemico HP: %d/%d%n",
                 player.getHp(), player.getMaxHp(), player.getMp(), player.getMaxMp(),

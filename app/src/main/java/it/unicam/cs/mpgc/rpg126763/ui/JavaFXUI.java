@@ -37,6 +37,16 @@ public class JavaFXUI implements GameUI {
     }
 
     @Override
+    public void setEnemyImage(String imagePath) {
+    controller.setEnemyImage(imagePath);
+    }
+
+    @Override
+    public void setSpeakerImage(String speakerName) {
+        controller.setSpeakerImage(speakerName);
+    }
+
+    @Override
     public void updateBattleStatus(CombatCharacter player, CombatCharacter enemy) {
         if (controller != null) {
             controller.updateBattleStatus(player, enemy);

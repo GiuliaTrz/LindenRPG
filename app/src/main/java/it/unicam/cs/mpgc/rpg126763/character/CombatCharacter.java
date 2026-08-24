@@ -6,8 +6,19 @@ public abstract class CombatCharacter {
     protected int mp;
     protected int maxHp;
     protected int maxMp;
+    protected String imagePath;
 
     protected CombatCharacter() {}
+
+    protected CombatCharacter(String name, int hp, int mp, String imagePath) {
+        this.name = name;
+        this.hp = hp;
+        this.mp = mp;
+        this.maxHp = hp;
+        this.maxMp = mp;
+        this.imagePath = imagePath;
+    }
+
 
     protected CombatCharacter(String name, int hp, int mp) {
         this.name = name;
@@ -48,4 +59,10 @@ public abstract class CombatCharacter {
     public String toString() {
         return String.format("%s [HP:%d/%d MP:%d/%d]", name, hp, maxHp, mp, maxMp);
     }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
 }
+

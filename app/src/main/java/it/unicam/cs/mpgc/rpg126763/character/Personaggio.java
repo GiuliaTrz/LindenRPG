@@ -17,6 +17,10 @@ public class Personaggio extends CombatCharacter {
     public Personaggio(String name) {
         super(name, 100, 50);
     }
+    public Personaggio(String name, String imagePath) {
+        super(name, 100, 50, imagePath);
+    }
+
 
     public MageType getMageType() { return mageType; }
     public Equip getWeapon() { return weapon; }

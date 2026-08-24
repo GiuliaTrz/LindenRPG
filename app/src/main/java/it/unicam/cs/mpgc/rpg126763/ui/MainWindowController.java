@@ -2,6 +2,7 @@ package it.unicam.cs.mpgc.rpg126763.ui;
 
 import it.unicam.cs.mpgc.rpg126763.character.Nemico;
 import it.unicam.cs.mpgc.rpg126763.engine.GameEngine;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -43,10 +44,10 @@ public class MainWindowController {
         }
 
         enemies = new ArrayList<>();
-        enemies.add(new Nemico("Water Slime", 50, 15));
-        enemies.add(new Nemico("Fire Slime", 40, 20));
-        enemies.add(new Nemico("Wind Slime", 70, 15));
-        enemies.add(new Nemico("Earth Slime", 100, 10));
+        enemies.add(new Nemico("Water Slime", 50, 15, "/it/unicam/cs/mpgc/rpg126763/images/water_slime.png"));
+        enemies.add(new Nemico("Fire Slime", 40, 20, "/it/unicam/cs/mpgc/rpg126763/images/fire_slime.png"));
+        enemies.add(new Nemico("Wind Slime", 70, 15, "/it/unicam/cs/mpgc/rpg126763/images/wind_slime.png"));
+        enemies.add(new Nemico("Earth Slime", 100, 10, "/it/unicam/cs/mpgc/rpg126763/images/earth_slime.png"));
 
         updateLoadButtonState();
     }
@@ -92,6 +93,9 @@ public class MainWindowController {
                 gameController.setGameEngine(gameEngine);
 
                 Scene scene = new Scene(root);
+                scene.getStylesheets().add(
+                        getClass().getResource("/it/unicam/cs/mpgc/rpg126763/css/game-style.css").toExternalForm()
+                );
                 primaryStage.setScene(scene);
                 primaryStage.setTitle("LindenRPG - " + name.trim());
 
@@ -167,6 +171,9 @@ public class MainWindowController {
                 gameController.setGameEngine(gameEngine);
 
                 Scene scene = new Scene(root);
+                scene.getStylesheets().add(
+                        getClass().getResource("/it/unicam/cs/mpgc/rpg126763/css/game-style.css").toExternalForm()
+                );
                 primaryStage.setScene(scene);
                 primaryStage.setTitle("LindenRPG");
 
@@ -207,5 +214,16 @@ public class MainWindowController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void handleSavedFiles(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SavedFilesWindow.fxml"));
+        Parent root = loader.load();
+        DeleteSaveController deleteSaveController = loader.getController();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Delete saved files");
+        stage.show();
     }
 }

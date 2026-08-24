@@ -28,11 +28,9 @@ public class DialoguePlayer {
         this.constantManager = new ConstantManager();
         setConstants();
         constantManager.apply(dialogues);
-
     }
 
     private void setConstants() {
-
         constantManager.setConstant("playerName", gameState.getPlayer().getName());
     }
 
@@ -49,8 +47,10 @@ public class DialoguePlayer {
         }
 
         String speaker = current.getSpeaker();
-        String text = (speaker != null && !speaker.isBlank())
-                ? speaker + ": " + current.getText()
+        ui.setSpeakerImage(speaker);
+
+        String text = (current.getSpeakerDialogue() != null && !current.getSpeakerDialogue().isBlank())
+                ? current.getSpeakerDialogue() + ": " + current.getText()
                 : current.getText();
         ui.showMessage(text);
 

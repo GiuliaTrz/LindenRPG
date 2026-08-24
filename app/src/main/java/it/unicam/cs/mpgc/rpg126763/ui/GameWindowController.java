@@ -16,6 +16,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -55,6 +58,9 @@ public class GameWindowController {
     @FXML
     private VBox optionsPanel;
 
+    @FXML
+    private ImageView speakerImage;
+
     private JavaFXUI ui;
     private GameEngine gameEngine;
     private StringBuilder historyBuilder = new StringBuilder();
@@ -89,24 +95,19 @@ public class GameWindowController {
         this.ui = ui;
         ui.setController(this);
     }
-
     public void setGameEngine(GameEngine gameEngine) {
         this.gameEngine = gameEngine;
     }
-
-
     public void appendDialogueText(String text, String speaker) {
         Platform.runLater(() -> {
             if (isBattleMode) {
                 showDialogueMode();
             }
-
             if (speaker != null && !speaker.isBlank()) {
                 speakerText.setText(speaker);
             } else {
                 speakerText.setText("");
             }
-
             dialogueTextArea.appendText(text + "\n\n");
             historyBuilder.append(speaker != null ? speaker + ": " : "");
             historyBuilder.append(text).append("\n");
@@ -122,18 +123,12 @@ public class GameWindowController {
             if (isBattleMode) {
                 showDialogueMode();
             }
-
             optionsPanel.getChildren().clear();
-
             Text promptText = new Text(prompt);
-            promptText.setStyle("-fx-fill: #f1c40f; -fx-font-size: 14px; -fx-font-weight: bold;");
             optionsPanel.getChildren().add(promptText);
-
             for (int i = 0; i < options.size(); i++) {
                 final int index = i;
                 Button btn = new Button(options.get(i));
-                btn.setMaxWidth(Double.MAX_VALUE);
-                btn.setStyle("-fx-font-size: 14px; -fx-padding: 10px 20px; -fx-background-color: rgba(241, 196, 15, 0.8); -fx-text-fill: #2c3e50; -fx-font-weight: bold; -fx-background-radius: 8px; -fx-border-color: #f39c12; -fx-border-width: 2px;");
                 btn.setOnAction(e -> {
                     future.complete(index);
                     optionsPanel.getChildren().forEach(node -> {
@@ -144,9 +139,47 @@ public class GameWindowController {
                 });
                 optionsPanel.getChildren().add(btn);
             }
-
             optionsPanel.setVisible(true);
         });
+    }
+
+    public void setSpeakerImage(String speakerName) {
+        if (speakerName == null || speakerName.trim().isEmpty()) {
+            return;
+        }
+        String imageName = speakerName.trim().toLowerCase().replace(" ", "_") + ".png";
+        setImageFromResource("/it/unicam/cs/mpgc/rpg126763/images/" + imageName);
+    }
+
+    private void setImageFromResource(String path) {
+        try {
+            Image img = new Image(getClass().getResourceAsStream(path));
+            if (!img.isError()) {
+                speakerImage.setImage(img);
+                speakerImage.setVisible(true);
+            } else {
+                Image fallback = new Image(getClass().getResourceAsStream(
+                        "/it/unicam/cs/mpgc/rpg126763/images/avatar.png"));
+                speakerImage.setImage(fallback);
+                speakerImage.setVisible(true);
+            }
+        } catch (Exception e) {
+            System.err.println("Immagine speaker non trovata: " + path);
+            speakerImage.setVisible(false);
+        }
+    }
+
+    public void setEnemyImage(String imagePath) {
+        try {
+            Image img = new Image(getClass().getResourceAsStream(imagePath));
+            if (!img.isError()) {
+                enemySprite.setImage(img);
+            } else {
+                System.err.println("Immagine non trovata: " + imagePath);
+            }
+        } catch (Exception e) {
+            System.err.println("Errore nel caricamento dell'immagine: " + e.getMessage());
+        }
     }
 
     public void updateBattleStatus(CombatCharacter player, CombatCharacter enemy) {
@@ -154,13 +187,11 @@ public class GameWindowController {
             if (!isBattleMode) {
                 showBattleMode();
             }
-
             playerNameLabel.setText(player.getName());
             playerHpBar.setProgress((double) player.getHp() / player.getMaxHp());
             playerHpLabel.setText(String.format("HP: %d/%d", player.getHp(), player.getMaxHp()));
             playerMpBar.setProgress((double) player.getMp() / player.getMaxMp());
             playerMpLabel.setText(String.format("MP: %d/%d", player.getMp(), player.getMaxMp()));
-
             if (enemy != null) {
                 enemyNameLabel.setText(enemy.getName());
                 enemyHpBar.setProgress((double) enemy.getHp() / enemy.getMaxHp());
@@ -178,21 +209,14 @@ public class GameWindowController {
             future.complete(null);
             return;
         }
-
         Platform.runLater(() -> {
             if (!isBattleMode) {
                 showBattleMode();
             }
-
             skillsContainer.getChildren().clear();
-
             for (Skill skill : skills) {
                 Button btn = new Button(String.format("%s\nDanno: %d MP: %d",
                         skill.getName(), skill.getDamage(), skill.getCostMp()));
-                btn.setPrefWidth(120);
-                btn.setPrefHeight(70);
-                btn.setWrapText(true);
-                btn.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 10px; -fx-border-color: #2980b9; -fx-border-width: 2px;");
                 btn.setOnAction(e -> {
                     future.complete(skill);
                     skillsContainer.getChildren().forEach(node -> {

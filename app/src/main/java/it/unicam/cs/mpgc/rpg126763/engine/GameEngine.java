@@ -98,6 +98,7 @@ public class GameEngine {
                         if (gameState.getEnemy()==null) {
                             gameState.setEnemy(enemyList.get(new Random().nextInt(enemyList.size())));
                         }
+                        ui.setEnemyImage(gameState.getEnemy().getImagePath());
                         ui.showMessage("Un " + gameState.getEnemy().getName() + " appare! Preparati al combattimento!");
                         BattleManager battleManager = new BattleManager(ui);
                         return battleManager.startBattle(gameState);

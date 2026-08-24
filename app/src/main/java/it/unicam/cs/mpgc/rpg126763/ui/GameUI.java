@@ -12,6 +12,8 @@ import java.util.concurrent.CompletableFuture;
 public interface GameUI {
     void showMessage(String message);
     CompletableFuture<Integer> choose(String prompt, List<String> options);
+    void setEnemyImage(String imagePath);
+    void setSpeakerImage(String speakerName);
     void updateBattleStatus(CombatCharacter player, CombatCharacter enemy);
     CompletableFuture<Skill> chooseSkill(Personaggio player);
     void enemyTurnNotification(Nemico enemy, int damage);

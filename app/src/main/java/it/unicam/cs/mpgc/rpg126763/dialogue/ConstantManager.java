@@ -30,6 +30,7 @@ public class ConstantManager {
      * @param dialogues mappa dei dialoghi da modificare
      */
     public void apply(Map<String, Dialogue> dialogues) {
+
         dialogues.values().forEach(this::replaceInDialogue);
     }
 
@@ -40,6 +41,7 @@ public class ConstantManager {
      */
     private void replaceInDialogue(Dialogue dialogue) {
         dialogue.setText(replace(dialogue.getText()));
+        dialogue.setSpeakerDialogue(replace(dialogue.getSpeakerDialogue()));
 
         if (dialogue.getOptions() != null) {
             dialogue.getOptions().forEach(option ->
