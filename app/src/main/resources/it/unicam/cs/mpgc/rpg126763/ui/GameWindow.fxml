@@ -95,7 +95,7 @@
 
     <VBox fx:id="optionsPanel"
           alignment="CENTER"
-          spacing="15"
+          spacing="10"
           fillWidth="false"
           maxWidth="-Infinity"
           maxHeight="-Infinity"
