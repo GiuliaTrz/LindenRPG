@@ -67,7 +67,8 @@ public class BattleManager {
 
         if (skill.getHeal() > 0) {
             player.heal(skill.getHeal());
-            ui.showMessage("Ti curi con " + skill.getHeal() + " HP/MP!");
+            ui.showMessage("Hai recuperato" + skill.getHeal() + " HP!");
         }
+        ui.updateBattleStatus(player, enemy);
     }
 }
