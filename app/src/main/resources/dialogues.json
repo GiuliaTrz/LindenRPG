@@ -2,8 +2,8 @@
   {
     "id": "start",
     "speaker": "avatar",
-    "speakerDialogue": "$playerName$",
-    "text": "$playerName$ apre lentamente gli occhi...\n'...Mi fa male la testa... dove sono?",
+    "speakerDialogue": null,
+    "text": "$playerName$ apre lentamente gli occhi...\n\n\"$playerName$: ...Mi fa male la testa... dove sono?",
     "options": [
       {
         "id": "continue",
@@ -19,7 +19,7 @@
     "id": "forest_1",
     "speaker": "avatar",
     "speakerDialogue": "$playerName$",
-    "text": "La foresta è cosi silenziosa... Troppo silenziosa...\nSento come delle presenze attorno a me...",
+    "text": "La foresta è cosi silenziosa... Troppo silenziosa...\n\nSento come delle presenze attorno a me...",
     "options": [
       {
         "id": "continue",
@@ -51,7 +51,7 @@
     "id": "ermine_1",
     "speaker": "ermellino",
     "speakerDialogue": null,
-    "text": "Pian piano, il mostro si trasforma in un piccolo ermellino.\n\n$playerName$: 'Cosa...?'",
+    "text": "Pian piano, il mostro si trasforma in un piccolo ermellino.\n\n$playerName$: Cosa...?",
     "options": [
       {
         "id": "continue",
@@ -67,7 +67,7 @@
     "id": "ermine_2",
     "speaker": "ermellino",
     "speakerDialogue": "Ermellino",
-    "text": "\n\n'Sono Xaddy, Kairi mi aveva già detto che ti spaventi cosi facilmente. Comunque...'\n\n'Non ho molto tempo. Prendi solo uno di questi.'\n\nQuattro forze elementali appaiono davanti a te.",
+    "text": "Va meglio, così? Sono Rhys, mi ha mandato Rowan. Comunque...\nNon ho molto tempo, $playerName$. Scegli uno di questi: sono elementi magici, scegli con cura.\n\nQuattro forze elementali appaiono davanti a te.",
     "options": [
       {
         "id": "continue",
@@ -83,7 +83,7 @@
     "id": "choice_1",
     "speaker": null,
     "speakerDialogue": null,
-    "text": "L'aria cambia.\n\nUna fiamma fluttua, viva, calda.\nUna goccia d'acqua sospesa, delicata.\nUna piuma, che ruota in un vento invisibile e impalpabile.\nUna piccola pietra muschiosa pulsa e fluttua.\n\nNon sono semplici oggetti.\nSono... scelte. Quale elemento ti attira?",
+    "text": "L'aria cambia.\n\nUna fiamma che fluttua, viva, calda.\nUna goccia d'acqua sospesa, delicata.\nUna piuma, che ruota in un vento invisibile e impalpabile.\nUna piccola pietra muschiosa pulsa e fluttua.\nNon sono semplici oggetti.\nSono... scelte. Quale elemento ti attira?",
     "options": [
       {
         "id": "EMBER",
@@ -119,8 +119,8 @@
   {
     "id": "after_choice",
     "speaker": "ermellino",
-    "speakerDialogue": "Ermellino",
-    "text": "L'ermellino osserva in silenzio.\n\n'Bene... ha scelto te.'\nBeh... il resto lo scoprirai presto.\nAdesso sei un mago.",
+    "speakerDialogue": "Rhys",
+    "text": "Ottima scelta.\nBeh... il resto lo scoprirai presto.\nAdesso sei un mago, $playerName$.",
     "options": [
       {
         "id": "continue",
