@@ -14,8 +14,7 @@ import java.io.*;
 public class JsonSaveManager implements SaveManager {
     private final Gson gson;
     private String filePath;
-    //save manager: interfaccia con save e load e senza file path sui metodi
-    //json save manager implementa interfaccia e nel costruttore passo il file e implemento metodi
+
     public JsonSaveManager(String filePath) {
         this.filePath = filePath;
         this.gson = new GsonBuilder().setPrettyPrinting().create();

@@ -11,23 +11,16 @@ public class Dialogue {
     private String id;
     private String text;
     private String speaker;          // opzionale (può essere null)
-
-    public void setSpeakerDialogue(String speakerDialogue) {
-        this.speakerDialogue = speakerDialogue;
-    }
-
     private String speakerDialogue;
     private List<Option> options;    // null o vuoto = nessuna scelta
     private boolean battle;          // true = dopo questo dialogo inizia un combattimento
 
     public Dialogue() {}
 
-
     public Dialogue(String id, String text, String speaker, List<Option> options, boolean battle) {
         this.id = id;
         this.text = text;
         this.speaker = speaker;
-        this.speakerDialogue = speakerDialogue;
         this.options = options;
         this.battle = battle;
     }
@@ -44,12 +37,14 @@ public class Dialogue {
 
     public String getSpeaker() {
         return speaker; }
-
     public void setSpeaker(String speaker) {
         this.speaker = speaker; }
 
     public String getSpeakerDialogue() {
         return speakerDialogue;
+    }
+    public void setSpeakerDialogue(String speakerDialogue) {
+        this.speakerDialogue = speakerDialogue;
     }
 
     public List<Option> getOptions() {

@@ -39,16 +39,25 @@ public class BattleManager {
                 return CompletableFuture.completedFuture(null);
             }
 
-            int damage = enemy.getAttack();
-            player.takeDamage(damage);
-            ui.enemyTurnNotification(enemy, damage);
+            return CompletableFuture
+                    .runAsync(
+                            () -> {},
+                            //aggiungo un piccolo delay per fare in modo che la ui abbia il tempo di aggiornarsi
+                            CompletableFuture.delayedExecutor(800, java.util.concurrent.TimeUnit.MILLISECONDS)
+                    )
+                    .thenRun(() -> {
+                        int damage = enemy.getAttack();
+                        player.takeDamage(damage);
+                        ui.enemyTurnNotification(enemy, damage);
+                    })
+                    .thenCompose(v -> {
+                        if (!player.isAlive()) {
+                            ui.battleResult(false);
+                            return CompletableFuture.completedFuture(null);
+                        }
 
-            if (!player.isAlive()) {
-                ui.battleResult(false);
-                return CompletableFuture.completedFuture(null);
-            }
-
-            return executeTurn(player, enemy);
+                        return executeTurn(player, enemy);
+                    });
         });
     }
 
@@ -67,7 +76,8 @@ public class BattleManager {
 
         if (skill.getHeal() > 0) {
             player.heal(skill.getHeal());
-            ui.showMessage("Ti curi con " + skill.getHeal() + " HP/MP!");
+            ui.showMessage("Hai recuperato" + skill.getHeal() + " HP!");
         }
+        ui.updateBattleStatus(player, enemy);
     }
 }

@@ -17,9 +17,11 @@ public class App extends Application {
         MainWindowController controller = loader.getController();
         controller.setPrimaryStage(primaryStage);
 
+
         Scene scene = new Scene(root);
         primaryStage.setTitle("LindenRPG");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

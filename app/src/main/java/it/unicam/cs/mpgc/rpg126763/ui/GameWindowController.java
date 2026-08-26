@@ -198,8 +198,12 @@ public class GameWindowController {
             }
             skillsContainer.getChildren().clear();
             for (Skill skill : skills) {
-                Button btn = new Button(String.format("%s\nDanno: %d MP: %d",
-                        skill.getName(), skill.getDamage(), skill.getCostMp()));
+                String btnText = String.format("%s\nDanno: %d MP: %d", skill.getName(), skill.getDamage(), skill.getCostMp());
+
+                if (skill.getDamage()==0){
+                    btnText = String.format("%s\nCura: %d MP: %d", skill.getName(), skill.getHeal(), skill.getCostMp());
+                }
+               Button btn = new Button(btnText);
                 btn.setOnAction(e -> {
                     future.complete(skill);
                     disableButtons(skillsContainer);
