@@ -28,7 +28,7 @@ public enum MageType {
     private final int baseHp;
     private final int baseMp;
     private final List<Skill> skills;
-    private final String flavorText;   // <-- campo aggiunto
+    private final String flavorText;
 
     MageType(String name, int baseHp, int baseMp, List<Skill> skills, String flavorText) {
         this.name = name;

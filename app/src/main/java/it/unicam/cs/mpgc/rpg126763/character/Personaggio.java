@@ -23,7 +23,7 @@ public class Personaggio extends CombatCharacter {
 
 
     public MageType getMageType() { return mageType; }
-    public Equip getWeapon() { return weapon; }
+    public Equip getWeapon() { return weapon; } //eventuale estensione futura
     public List<Item> getInventory() { return inventory; }
 
     public void setMageType(MageType mageType) {
@@ -34,36 +34,10 @@ public class Personaggio extends CombatCharacter {
         this.maxMp = this.mp;
     }
 
-    public void setWeapon(Equip weapon) { this.weapon = weapon; }
-
     public List<Skill> getSkills() {
         return mageType != null ? mageType.getSkills() : List.of();
     }
 
-    public void addItem(Item item) { inventory.add(item); }
-    public void removeItem(Item item) { inventory.remove(item); }
-    public Item getItem(int index) { return inventory.get(index); }
-
-    public void useItem(Item item) {
-        if (item == null) return;
-        switch (item.getType()) {
-            case HEAL -> heal(item.getValue());
-            case BUFF -> mp = Math.min(maxMp, mp + item.getValue());
-            case QUEST -> { }
-        }
-        inventory.remove(item);
-    }
-
-    public void printInventory() {
-        System.out.println("\nInventario:");
-        if (inventory.isEmpty()) {
-            System.out.println("(vuoto)");
-            return;
-        }
-        for (int i = 0; i < inventory.size(); i++) {
-            System.out.println((i + 1) + ") " + inventory.get(i));
-        }
-    }
 
     @Override
     public String toString() {
@@ -73,5 +47,22 @@ public class Personaggio extends CombatCharacter {
         return sb.toString();
     }
 
+
+    // lascio questi metodi per eventuali estensioni future
+
+    public void setWeapon(Equip weapon) { this.weapon = weapon; }
+    public void addItem(Item item) { inventory.add(item); }
+    public void removeItem(Item item) { inventory.remove(item); }
+    public Item getItem(int index) { return inventory.get(index); }
+    public void useItem(Item item) {
+
+        if (item == null) return;
+        switch (item.getType()) {
+            case HEAL -> heal(item.getValue());
+            case BUFF -> mp = Math.min(maxMp, mp + item.getValue());
+            case QUEST -> { }
+        }
+        inventory.remove(item);
+    }
 
 }

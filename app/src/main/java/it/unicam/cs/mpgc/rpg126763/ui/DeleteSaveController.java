@@ -25,17 +25,13 @@ public class DeleteSaveController {
     @FXML
     private Button deleteButton;
 
-    // Cartella dove sono salvati i file JSON delle partite
-    private static final String SAVE_DIRECTORY = "saves/";  // Modifica con il percorso reale
+    private static final String SAVE_DIRECTORY = "saves/";
 
     private final ObservableList<File> saveFiles = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
-        // Collega la lista osservabile alla ListView
         saveListView.setItems(saveFiles);
-
-        // Carica i file dalla cartella
         loadSaveFiles();
     }
 
@@ -76,7 +72,6 @@ public class DeleteSaveController {
 
         boolean deleted = selectedFile.delete();
         if (deleted) {
-            // Rimuove il file dalla lista osservabile
             saveFiles.remove(selectedFile);
             showAlert("File eliminato", "Il salvataggio è stato eliminato con successo.");
         } else {

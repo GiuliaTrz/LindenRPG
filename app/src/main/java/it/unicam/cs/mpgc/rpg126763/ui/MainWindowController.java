@@ -37,14 +37,11 @@ public class MainWindowController {
 
     @FXML
     private Button newGameButton;
-
     @FXML
     private Button loadGameButton;
-
     private Stage primaryStage;
     private GameEngine gameEngine;
     private List<Nemico> enemies;
-
     private static final String SAVE_DIR = "saves/";
     private static final String STYLESHEET_PATH = "/it/unicam/cs/mpgc/rpg126763/css/game-style.css";
     private static final String GAME_FXML_PATH = "GameWindow.fxml";
@@ -83,12 +80,12 @@ public class MainWindowController {
     private void handleNewGame() {
         TextInputDialog nameDialog = new TextInputDialog();
         nameDialog.setTitle("Nuova partita");
-        nameDialog.setHeaderText("Inserisci il nome del tuo personaggio");
+        nameDialog.setHeaderText("Inserisci il nome del tuo personaggio. \nSono permessi solo caratteri alfanumerici, - e _. .");
         nameDialog.setContentText("Nome:");
 
         nameDialog.showAndWait().ifPresent(name -> {
-            if (name.trim().isEmpty()) {
-                showAlert("Errore", "Il nome non può essere vuoto!");
+            if (!name.matches("[A-Za-z0-9_-]+") || name.length()>50) {
+                showAlert("Errore", "Il nome inserito non è valido!");
                 return;
             }
             String cleanName = name.trim();
@@ -249,6 +246,7 @@ public class MainWindowController {
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.setTitle("Delete saved files");
         stage.show();
     }
