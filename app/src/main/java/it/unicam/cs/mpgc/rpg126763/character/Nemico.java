@@ -13,7 +13,7 @@ public class Nemico extends CombatCharacter {
     /**
      * Crea un nemico con i parametri indicati
      * @param name   nome
-     * @param hp     punti vita (nessun MP)
+     * @param hp     hp
      * @param attack danno inflitto per attacco
      */
     public Nemico(String name, int hp, int attack, String imagePath) {
@@ -24,7 +24,7 @@ public class Nemico extends CombatCharacter {
     /**
      * Crea un nemico con i parametri indicati
      * @param name   nome
-     * @param hp     punti vita (nessun MP)
+     * @param hp     punti vita
      * @param attack danno inflitto per attacco
      */
     public Nemico(String name, int hp, int attack) {

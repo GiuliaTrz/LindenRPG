@@ -11,16 +11,21 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Carica i dialoghi dal file JSON nel classpath.
- * Il file deve essere nella cartella resources/ (es. resources/dialogues.json).
+ * Classe responsabile del caricamento dei dialoghi da un file JSON presente nel classpath.
+ * Il file deve trovarsi nella cartella delle risorse
+ *
+ * <p>Il formato del JSON è una lista di oggetti {@link Dialogue}, successivamente convertita
+ * in una map che associa a ogni ID di dialogo il relativo nodo.</p>
  */
 public class DialogueLoader {
 
     /**
-     * Carica i dialoghi da una risorsa JSON.
-     * @param resourcePath percorso relativo alla cartella resources (es. "dialogues.json")
-     * @return mappa id -> Dialogue
-     * @throws RuntimeException se il file non esiste o il parsing fallisce
+     * Carica i dialoghi da una risorsa JSON e li restituisce come map ID → {@link Dialogue}.
+     *
+     * @param resourcePath percorso relativo alla cartella delle risorse (es. "dialogues.json")
+     * @return una mappa che associa l'ID di ogni dialogo al nodo corrispondente
+     * @throws RuntimeException se il file non esiste, se il parsing fallisce
+     *                          o se sono presenti ID duplicati
      */
     public Map<String, Dialogue> loadFromResource(String resourcePath) {
         Gson gson = new Gson();
@@ -31,6 +36,7 @@ public class DialogueLoader {
         InputStreamReader reader = new InputStreamReader(is);
         Type listType = new TypeToken<List<Dialogue>>(){}.getType();
         List<Dialogue> list = gson.fromJson(reader, listType);
+
         return list.stream().collect(Collectors.toMap(Dialogue::getId, d -> d));
     }
 }

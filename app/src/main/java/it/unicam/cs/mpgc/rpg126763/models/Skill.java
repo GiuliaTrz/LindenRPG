@@ -1,5 +1,13 @@
 package it.unicam.cs.mpgc.rpg126763.models;
 
+/**
+ * Rappresenta le abilità utilizzabili dai personaggi durante i combattimenti.
+ * Ogni skill ha un nome, un costo in MP, un eventuale danno inflitto al nemico,
+ * una eventuale cura per il giocatore e un eventuale danno agli MP del nemico.
+ *
+ * <p>Le costanti sono raggruppate per tipo di mago elementale:
+ * Emberweaver (fuoco), Tideweaver (acqua), Gustweaver (vento) e Earthweaver (terra).</p>
+ */
 public enum Skill {
 
     // Emberweaver
@@ -28,6 +36,15 @@ public enum Skill {
     private final int damage;
     private final int enemyMpDamage;
 
+    /**
+     * Costruttore delle costanti enum.
+     *
+     * @param name          nome leggibile della skill
+     * @param heal          quantità di HP recuperati dal giocatore (0 se non cura)
+     * @param costMp        costo in MP per utilizzare la skill
+     * @param damage        danno inflitto al nemico (0 se non danneggia)
+     * @param enemyMpDamage danno agli MP del nemico (attualmente non utilizzato, ma inserito per future versioni)
+     */
     Skill(String name, int heal, int costMp, int damage, int enemyMpDamage) {
         this.name = name;
         this.heal = heal;
@@ -36,26 +53,58 @@ public enum Skill {
         this.enemyMpDamage = enemyMpDamage;
     }
 
+    /**
+     * Restituisce il nome leggibile della skill.
+     *
+     * @return il nome della skill
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Restituisce la quantità di HP che la skill permette di recuperare.
+     *
+     * @return la cura fornita (0 se non cura)
+     */
     public int getHeal() {
         return heal;
     }
 
+    /**
+     * Restituisce il costo in MP per utilizzare la skill.
+     *
+     * @return il costo in MP
+     */
     public int getCostMp() {
         return costMp;
     }
 
+    /**
+     * Restituisce il danno inflitto al nemico dalla skill.
+     *
+     * @return il danno (0 se non danneggia)
+     */
     public int getDamage() {
         return damage;
     }
 
+    /**
+     * Restituisce il danno agli MP del nemico.
+     * Attualmente non è utilizzato nella logica di combattimento,
+     * ma è previsto per future estensioni.
+     *
+     * @return il danno agli MP del nemico
+     */
     public int getEnemyMpDamage() {
         return enemyMpDamage;
     }
 
+    /**
+     * Restituisce il nome leggibile della skill.
+     *
+     * @return il nome della skill
+     */
     @Override
     public String toString() {
         return name;
