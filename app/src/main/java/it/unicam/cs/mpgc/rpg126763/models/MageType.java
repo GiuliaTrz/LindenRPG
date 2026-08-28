@@ -3,7 +3,8 @@ package it.unicam.cs.mpgc.rpg126763.models;
 import java.util.List;
 
 /**
- * Enum dei tipi di mago elementale (fuoco, acqua, vento, terra). Contiene le statistiche di base
+ * Enum dei tipi di mago elementale (con "attributi elementali": fuoco, acqua, vento, terra).
+ * Contiene le statistiche di base
  * e le skill associate, oltre al flavour text per l'effetto narrativo.
  */
 public enum MageType {

@@ -111,7 +111,7 @@ public class DialoguePlayer {
     private CompletableFuture<DialogueResult> processNode(String nodeId, String lastEffect) {
         gameState.setCurrentDialogueId(nodeId);
 
-        // pulisce l'ID da eventuali spazi bianchi
+        //Pulisce l'ID rimuovendo eventuali spazi bianchi
         nodeId = nodeId.trim();
 
         Dialogue current = dialogues.get(nodeId);

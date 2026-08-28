@@ -12,8 +12,21 @@ public class Option {
     private String effect;
     private String condition;
 
+
+    /**
+     * Costruttore vuoto, utile per la deserializzazione.
+     */
     public Option() {}
 
+    /**
+     * Costruisce un'opzione con i dati specificati.
+     *
+     * @param id             identificativo univoco dell'opzione
+     * @param text           testo mostrato al giocatore
+     * @param nextDialogueId ID del nodo di dialogo successivo
+     * @param effect         chiave dell'effetto da applicare (può essere null)
+     * @param condition      chiave della condizione di visibilità (può essere null)
+     */
     public Option(String id, String text, String nextDialogueId, String effect, String condition) {
         this.id = id;
         this.text = text;

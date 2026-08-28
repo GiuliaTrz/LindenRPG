@@ -10,13 +10,25 @@ import java.util.List;
 public class Dialogue {
     private String id;
     private String text;
-    private String speaker;          // opzionale (può essere null)
+    private String speaker;
     private String speakerDialogue;
-    private List<Option> options;    // null o vuoto = nessuna scelta
-    private boolean battle;          // true = dopo questo dialogo inizia un combattimento
+    private List<Option> options;
+    private boolean battle;
 
+    /**
+     * Costruttore vuoto, utile per la deserializzazione.
+     */
     public Dialogue() {}
 
+    /**
+     * Costruisce un nodo di dialogo con i dati essenziali.
+     *
+     * @param id      identificativo univoco del nodo
+     * @param text    testo mostrato al giocatore
+     * @param speaker nome dello speaker (può essere null)
+     * @param options lista delle opzioni disponibili (può essere null o vuota)
+     * @param battle  true se dopo questo nodo inizia un combattimento
+     */
     public Dialogue(String id, String text, String speaker, List<Option> options, boolean battle) {
         this.id = id;
         this.text = text;
@@ -26,43 +38,59 @@ public class Dialogue {
     }
 
     public String getId() {
-        return id; }
+        return id;
+    }
+
     public void setId(String id) {
-        this.id = id; }
+        this.id = id;
+    }
 
     public String getText() {
-        return text; }
+        return text;
+    }
+
     public void setText(String text) {
-        this.text = text; }
+        this.text = text;
+    }
 
     public String getSpeaker() {
-        return speaker; }
+        return speaker;
+    }
+
     public void setSpeaker(String speaker) {
-        this.speaker = speaker; }
+        this.speaker = speaker;
+    }
 
     public String getSpeakerDialogue() {
         return speakerDialogue;
     }
+
     public void setSpeakerDialogue(String speakerDialogue) {
         this.speakerDialogue = speakerDialogue;
     }
 
     public List<Option> getOptions() {
-        return options; }
+        return options;
+    }
+
     public void setOptions(List<Option> options) {
-        this.options = options; }
+        this.options = options;
+    }
 
     public boolean isBattle() {
-        return battle; }
+        return battle;
+    }
+
     public void setBattle(boolean battle) {
-        this.battle = battle; }
+        this.battle = battle;
+    }
 
     /**
      * Verifica se il nodo ha opzioni disponibili.
+     *
      * @return true se la lista delle opzioni non è null e non è vuota
      */
     public boolean hasOptions() {
-
         return options != null && !options.isEmpty();
     }
 
