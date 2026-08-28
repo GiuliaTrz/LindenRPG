@@ -12,7 +12,6 @@ public class NPC {
     public NPC(String name) { this.name = name; }
 
     public String getName() { return name; }
-    public String getDialogueHint() { return dialogueHint; }
 
     @Override
     public String toString() { return name; }

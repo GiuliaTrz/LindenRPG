@@ -26,6 +26,7 @@ public class Personaggio extends CombatCharacter {
     public Equip getWeapon() { return weapon; } //eventuale estensione futura
     public List<Item> getInventory() { return inventory; }
 
+
     public void setMageType(MageType mageType) {
         this.mageType = mageType;
         this.hp = mageType.getBaseHp();

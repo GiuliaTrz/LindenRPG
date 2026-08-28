@@ -9,8 +9,8 @@ public class Option {
     private String id;
     private String text;
     private String nextDialogueId;
-    private String effect;        // chiave per EffectFactory (può essere null) :nota, da togliere
-    private String condition;     // chiave per ConditionFactory (può essere null) :nota, da togliere
+    private String effect;
+    private String condition;
 
     public Option() {}
 

@@ -83,11 +83,13 @@ public class MainWindowController {
         nameDialog.setHeaderText("Inserisci il nome del tuo personaggio. \nSono permessi solo caratteri alfanumerici, - e _. .");
         nameDialog.setContentText("Nome:");
 
+
         nameDialog.showAndWait().ifPresent(name -> {
             if (!name.matches("[A-Za-z0-9_-]+") || name.length()>50) {
                 showAlert("Errore", "Il nome inserito non è valido!");
                 return;
             }
+
             String cleanName = name.trim();
             String filePath = SAVE_DIR + cleanName.toLowerCase() + ".json";
             setupGameWindow(filePath, "LindenRPG - " + cleanName, true, cleanName);
