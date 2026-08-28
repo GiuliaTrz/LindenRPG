@@ -35,6 +35,3 @@ Da terminale, nella directory principale del progetto:
 ```bash
 ./gradlew build
 ./gradlew run
-
-
-
